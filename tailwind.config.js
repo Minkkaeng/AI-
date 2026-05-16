@@ -8,14 +8,12 @@ export default {
     extend: {
       colors: {
         neoul: {
-          jeok: '#FF4D4D', // Refined Blood Coral (Red)
-          cheong: '#0055FF', // Functional Blue
-          hwang: '#FFBB00', // Highlight Yellow
-          heuk: '#111111', // Black
-          baek: '#FFFFFF', // White
-          gray: '#F5F5F5',
-          mint: '#2DD4BF', // Keep DatePop Mint for accent
-          orange: '#FB923C', // Keep DatePop Orange for accent
+          brand: '#2DD4BF', // DatePop Mint
+          accent: '#FB923C', // Orange
+          heuk: '#1F2937', // Slate 800 (Clean black)
+          baek: '#FFFFFF',
+          gray: '#F9FAFB', // Slate 50
+          border: '#F3F4F6', // Slate 100
         }
       },
       fontFamily: {
