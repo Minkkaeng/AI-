@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, MapPin, Play, Pause, Home, Heart, Settings, Accessibility, ChevronLeft, ChevronDown, Globe, Share2, Star, Plane, Clock, Info, ExternalLink, MessageCircle } from 'lucide-react';
-import { MOCK_PLACES, MOCK_REGIONS, Place, Region } from '../types';
+import { Search, MapPin, Play, Pause, Home, Heart, Settings, Accessibility, ChevronLeft, ChevronDown, Globe, Share2, Star, Plane, Clock, Info, ExternalLink } from 'lucide-react';
+import { MOCK_REGIONS } from '../types';
+import type { Place, Region } from '../types';
 
 interface AppVersionProps {
   isHifi?: boolean;
@@ -13,7 +14,6 @@ export default function AppVersion({ isHifi: _isHifi = false }: AppVersionProps)
   const [selectedRegion, setSelectedRegion] = useState<Region | null>(null);
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [showPlayer, setShowPlayer] = useState(false);
-  const [activeTab, setActiveTab] = useState<'info' | 'history' | 'review'>('info');
 
   useEffect(() => {
     const timer = setTimeout(() => setIsSplash(false), 1500);
