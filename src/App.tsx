@@ -122,7 +122,7 @@ export default function App() {
                    </div>
                    <div className="h-6 bg-neoul-orange flex items-center justify-center text-[5px] text-white font-black uppercase">적립금 팝콘이 생겼어요!</div>
                    <div className="flex-1 p-4 bg-[#F9F7F2]">
-                      <img src="/map-bg.png" className="w-full" />
+                      <img src="map-bg.png" className="w-full" />
                       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                          <div className="bg-white border-2 border-neoul-mint p-1 shadow-md flex flex-col items-center">
                             <MapPin className="w-3 h-3 text-neoul-mint" />

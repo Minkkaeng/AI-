@@ -29,7 +29,7 @@ export default function WebVersion() {
 
       {/* 3. Full-screen Puzzle Map */}
       <div className="absolute inset-0 z-0 flex items-center justify-center p-10 pt-32 bg-[#F9F7F2]">
-        <img src="/map-bg.png" className="max-w-full max-h-full object-contain" alt="DatePop Style Map" />
+        <img src="map-bg.png" className="max-w-full max-h-full object-contain" alt="DatePop Style Map" />
         
         {/* Markers - Blocky Style with DatePop Mint highlight */}
         <div className="absolute top-[48%] left-[52%] cursor-pointer group" onClick={() => setSelectedPlace(MOCK_PLACES[0])}>

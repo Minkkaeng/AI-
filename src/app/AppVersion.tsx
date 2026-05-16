@@ -59,7 +59,7 @@ export default function AppVersion() {
 
             {/* 1. Map Background */}
             <div className="absolute inset-0 z-0 flex items-center justify-center p-12 pt-24 bg-[#F9F7F2]">
-              <img src="/map-bg.png" className="max-w-full max-h-full object-contain" alt="Map" />
+              <img src="map-bg.png" className="max-w-full max-h-full object-contain" alt="Map" />
               
               {/* Regional Marker with Mint Highlight */}
               <motion.div 
