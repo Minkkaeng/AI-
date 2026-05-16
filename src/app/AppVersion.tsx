@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, MapPin, Play, Pause, Home, Heart, Settings, Accessibility, ChevronLeft, ChevronDown, Globe, Share2, Star, Clock, Info } from 'lucide-react';
+import { Search, MapPin, Play, Pause, Home, Heart, Settings, Accessibility, ChevronLeft, ChevronDown, Globe, Share2, Star, Info, Plane } from 'lucide-react';
 import { MOCK_PLACES } from '../types';
 
 interface AppVersionProps {
@@ -68,23 +68,77 @@ export default function AppVersion({ isHifi = false }: AppVersionProps) {
             </div>
 
             {/* Main Content Area */}
-            <div className="flex-1 relative overflow-hidden">
-               {/* Map Background */}
-               <div className="absolute inset-0 z-0 flex items-center justify-center bg-[#F9F7F2]">
-                 <img src="map-bg.png" className={`max-w-full max-h-full object-contain ${isHifi ? 'scale-110 opacity-60' : ''}`} alt="Map" />
+            <div className="flex-1 relative overflow-hidden bg-white">
+               {/* Korea Puzzle Map Background */}
+               <div className="absolute inset-0 z-0 flex items-center justify-center bg-white">
+                 <img src="map-bg.png" className={`max-w-full h-[85%] object-contain ${isHifi ? 'opacity-90' : 'opacity-40'}`} alt="Korea Puzzle Map" />
                  
-                 {/* Regional Marker */}
+                 {/* 1. Airport Location (Incheon) */}
+                 <motion.div 
+                   initial={{ y: -10, opacity: 0 }}
+                   animate={{ y: 0, opacity: 1 }}
+                   className="absolute top-[32%] left-[24%] flex flex-col items-center"
+                 >
+                    <div className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center border border-black/5">
+                       <Plane className="w-5 h-5 text-neoul-cheong -rotate-45" />
+                    </div>
+                    <span className="text-[8px] font-black mt-1 bg-white/80 px-2 py-0.5 rounded-full">INCHEON</span>
+                 </motion.div>
+
+                 {/* 2. Seoul Landmark (Gyeongbokgung) */}
                  <motion.div 
                    initial={{ scale: 0 }}
                    animate={{ scale: 1 }}
-                   className="absolute top-[48%] left-[50%] cursor-pointer"
+                   className="absolute top-[34%] left-[34%] cursor-pointer group"
                    onClick={() => setSelectedPlace(MOCK_PLACES[0])}
                  >
-                   <div className={`p-1 rounded-2xl shadow-2xl border border-black/5 flex flex-col items-center transition-all ${isHifi ? 'bg-white p-1.5' : 'bg-white'}`}>
-                     <div className="p-2 bg-neoul-mint rounded-xl">
-                       <MapPin className="w-4 h-4 text-white" />
+                   <div className="bg-white p-1 rounded-2xl shadow-2xl border border-black/5 flex flex-col items-center">
+                     <div className="w-12 h-12 rounded-xl overflow-hidden bg-slate-100">
+                        <img src="gyeongbokgung.png" className="w-full h-full object-cover" />
                      </div>
-                     <span className="text-[10px] font-bold mt-1 px-2">서울</span>
+                     <span className="text-[9px] font-black mt-1 px-2 uppercase tracking-tighter">서울</span>
+                   </div>
+                 </motion.div>
+
+                 {/* 3. Jeonju Landmark (Hanok Village) */}
+                 <motion.div 
+                   initial={{ scale: 0 }}
+                   animate={{ scale: 1 }}
+                   transition={{ delay: 0.2 }}
+                   className="absolute top-[58%] left-[32%] cursor-pointer"
+                   onClick={() => setSelectedPlace(MOCK_PLACES[1])}
+                 >
+                   <div className="bg-white p-1 rounded-2xl shadow-2xl border border-black/5 flex flex-col items-center">
+                     <div className="w-10 h-10 rounded-xl overflow-hidden bg-slate-100">
+                        <img src="hanok.png" className="w-full h-full object-cover" />
+                     </div>
+                     <span className="text-[8px] font-black mt-1 px-2 uppercase tracking-tighter">전주</span>
+                   </div>
+                 </motion.div>
+
+                 {/* 4. Gyeongju (Historical Capital) */}
+                 <motion.div 
+                   initial={{ scale: 0 }}
+                   animate={{ scale: 1 }}
+                   transition={{ delay: 0.3 }}
+                   className="absolute top-[64%] left-[62%] cursor-pointer opacity-50"
+                 >
+                   <div className="bg-white p-1 rounded-2xl shadow-xl border border-black/5 flex flex-col items-center">
+                     <div className="w-8 h-8 rounded-xl bg-neoul-hwang/20 flex items-center justify-center"><Star className="w-4 h-4 text-neoul-hwang" /></div>
+                     <span className="text-[7px] font-black mt-0.5">경주</span>
+                   </div>
+                 </motion.div>
+
+                 {/* 5. Busan (Coastal City) */}
+                 <motion.div 
+                   initial={{ scale: 0 }}
+                   animate={{ scale: 1 }}
+                   transition={{ delay: 0.4 }}
+                   className="absolute top-[78%] left-[65%] cursor-pointer opacity-50"
+                 >
+                   <div className="bg-white p-1 rounded-2xl shadow-xl border border-black/5 flex flex-col items-center">
+                     <div className="w-8 h-8 rounded-xl bg-neoul-cheong/20 flex items-center justify-center"><Globe className="w-4 h-4 text-neoul-cheong" /></div>
+                     <span className="text-[7px] font-black mt-0.5">부산</span>
                    </div>
                  </motion.div>
                </div>
@@ -93,7 +147,7 @@ export default function AppVersion({ isHifi = false }: AppVersionProps) {
                <div className="absolute top-4 left-6 right-6 z-20">
                  <div className={`rounded-3xl flex items-center px-5 py-4 transition-all ${isHifi ? 'bg-white shadow-2xl shadow-black/10' : 'bg-white/90 backdrop-blur-md shadow-sm border border-black/5'}`}>
                    <Search className={`w-4 h-4 mr-3 ${isHifi ? 'text-neoul-mint' : 'text-neoul-heuk/40'}`} />
-                   <input type="text" placeholder="어디로 여행을 떠나볼까요?" className="bg-transparent border-none outline-none w-full text-xs font-bold placeholder:text-black/20" />
+                   <input type="text" placeholder="한국의 어디로 떠나볼까요?" className="bg-transparent border-none outline-none w-full text-xs font-bold placeholder:text-black/20" />
                  </div>
                </div>
             </div>
@@ -109,7 +163,7 @@ export default function AppVersion({ isHifi = false }: AppVersionProps) {
                 >
                   <div className="w-18 h-18 rounded-3xl flex items-center justify-center overflow-hidden flex-shrink-0 bg-slate-100 relative">
                     {isHifi ? (
-                       <img src={idx === 0 ? 'hanok.png' : 'gyeongbokgung.png'} className="w-full h-full object-cover" />
+                       <img src={idx === 0 ? 'gyeongbokgung.png' : 'hanok.png'} className="w-full h-full object-cover" />
                     ) : (
                       <span className="text-xs font-bold text-neoul-heuk/10">[ X ]</span>
                     )}
@@ -151,7 +205,7 @@ export default function AppVersion({ isHifi = false }: AppVersionProps) {
               </button>
             </nav>
 
-            {/* Hi-Fi Detail Screen */}
+            {/* Detail Screen ... (keeping as is) */}
             <AnimatePresence>
               {selectedPlace && (
                 <motion.div
@@ -176,7 +230,7 @@ export default function AppVersion({ isHifi = false }: AppVersionProps) {
                   <div className="flex-1 overflow-y-auto no-scrollbar">
                     <div className="w-full aspect-[4/3] bg-slate-100 flex items-center justify-center relative overflow-hidden">
                       {isHifi ? (
-                         <img src="gyeongbokgung.png" className="w-full h-full object-cover" />
+                         <img src={selectedPlace.id === 1 ? 'gyeongbokgung.png' : 'hanok.png'} className="w-full h-full object-cover" />
                       ) : (
                         <div className="text-sm font-medium text-neoul-heuk/10 select-none">[ X ] 이미지 플레이스홀더</div>
                       )}
@@ -185,13 +239,6 @@ export default function AppVersion({ isHifi = false }: AppVersionProps) {
                         <div className="absolute top-4 left-6 flex gap-2">
                            <span className="bg-black/60 backdrop-blur px-3 py-1.5 rounded-full text-white text-[10px] font-bold">KOREAN HERITAGE</span>
                         </div>
-                      )}
-
-                      {!isHifi && (
-                        <svg className="absolute inset-0 w-full h-full opacity-5" preserveAspectRatio="none">
-                          <line x1="0" y1="0" x2="100%" y2="100%" stroke="currentColor" strokeWidth="1" />
-                          <line x1="100%" y1="0" x2="0" y2="100%" stroke="currentColor" strokeWidth="1" />
-                        </svg>
                       )}
                     </div>
 
@@ -210,7 +257,7 @@ export default function AppVersion({ isHifi = false }: AppVersionProps) {
                            <span className="text-xs font-bold text-neoul-hwang uppercase tracking-widest">History Highlight</span>
                         </div>
                         <p className="text-[13px] font-medium leading-relaxed text-neoul-heuk/80">
-                           {selectedPlace.name}은(는) 14세기 조선 왕조의 법궁으로, 한국의 유구한 역사와 미학적 가치를 상징하는 가장 아름다운 궁궐입니다.
+                           {selectedPlace.name}은(는) 한국의 소중한 문화유산으로, 그 역사적 가치와 아름다움을 보존하고 있습니다.
                         </p>
                       </div>
 
@@ -220,20 +267,6 @@ export default function AppVersion({ isHifi = false }: AppVersionProps) {
                             {selectedPlace.description}
                          </p>
                       </div>
-
-                      <div className="grid grid-cols-2 gap-4">
-                         <div className="bg-slate-50 p-4 rounded-3xl border border-black/5">
-                            <Clock className="w-5 h-5 text-neoul-heuk/20 mb-2" />
-                            <p className="text-[10px] font-bold text-neoul-heuk/40 uppercase mb-1">운영 시간</p>
-                            <p className="text-xs font-bold">09:00 - 18:00</p>
-                         </div>
-                         <div className="bg-slate-50 p-4 rounded-3xl border border-black/5">
-                            <MapPin className="w-5 h-5 text-neoul-heuk/20 mb-2" />
-                            <p className="text-[10px] font-bold text-neoul-heuk/40 uppercase mb-1">위치 정보</p>
-                            <p className="text-xs font-bold">서울 종로구 사직로</p>
-                         </div>
-                      </div>
-                      
                       <div className="h-32" />
                     </div>
                   </div>
@@ -244,7 +277,7 @@ export default function AppVersion({ isHifi = false }: AppVersionProps) {
                       className={`w-full py-5 rounded-[2rem] text-sm font-bold flex items-center justify-center gap-3 shadow-2xl transition-all active:scale-95 ${isHifi ? 'bg-neoul-heuk text-white shadow-black/20' : 'bg-neoul-jeok text-white shadow-neoul-jeok/20'}`}
                     >
                       <Play className="w-5 h-5 fill-white" />
-                      {isHifi ? 'LISTEN TO AI DOCENT' : 'AI 도슨트 시작하기'}
+                      LISTEN TO AI DOCENT
                     </button>
                   </footer>
                 </motion.div>
@@ -252,12 +285,12 @@ export default function AppVersion({ isHifi = false }: AppVersionProps) {
             </AnimatePresence>
           </motion.div>
         ) : (
-          /* Hi-Fi Player Screen */
+          /* Player Screen ... (keeping as is) */
           <motion.div 
             key="player" 
             initial={{ opacity: 0 }} 
             animate={{ opacity: 1 }} 
-            className={`absolute inset-0 z-50 flex flex-col transition-all ${isHifi ? 'bg-white' : 'bg-white'}`}
+            className="absolute inset-0 z-50 flex flex-col bg-white"
           >
             <header className="h-16 border-b border-black/5 flex items-center justify-between px-6 flex-shrink-0">
               <button onClick={() => setShowPlayer(false)} className="icon-btn">
@@ -278,16 +311,12 @@ export default function AppVersion({ isHifi = false }: AppVersionProps) {
                 transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
                 className={`w-64 h-64 rounded-full shadow-2xl mb-12 relative overflow-hidden border-8 border-white ${isHifi ? 'shadow-black/20' : 'shadow-black/5 bg-neoul-gray'}`}
               >
-                {isHifi ? (
-                   <img src="hanok.png" className="w-full h-full object-cover opacity-80" />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center text-xs font-bold text-neoul-heuk/10 uppercase">[ Art ]</div>
-                )}
+                <img src="hanok.png" className="w-full h-full object-cover opacity-80" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               </motion.div>
 
               <div className="text-center mb-12">
-                <h3 className="text-2xl font-bold text-neoul-heuk mb-2 tracking-tighter">{MOCK_PLACES[0].name.split('(')[0]}</h3>
+                <h3 className="text-2xl font-bold text-neoul-heuk mb-2 tracking-tighter">Ancient Heritage</h3>
                 <div className="bg-neoul-mint/10 text-neoul-mint px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest inline-block">
                   Premium Audio Log #01
                 </div>
@@ -301,26 +330,21 @@ export default function AppVersion({ isHifi = false }: AppVersionProps) {
                     className={`absolute top-0 left-0 bottom-0 transition-all ${isHifi ? 'bg-neoul-heuk' : 'bg-neoul-jeok'}`} 
                   />
                 </div>
-                <div className="flex justify-between font-bold text-[10px] text-neoul-heuk/40">
-                  <span className={isHifi ? 'text-neoul-heuk' : 'text-neoul-jeok'}>01:23</span>
-                  <span>04:50</span>
-                </div>
               </div>
 
               <div className="w-full flex items-center justify-around">
                 <button className="text-neoul-heuk/20 hover:text-neoul-heuk transition-colors"><Play className="w-10 h-10 rotate-180 fill-current" /></button>
-                <button className={`w-24 h-24 rounded-full flex items-center justify-center shadow-2xl transition-all active:scale-95 ${isHifi ? 'bg-neoul-heuk text-white shadow-black/40' : 'bg-neoul-gray border border-black/5 text-neoul-heuk'}`}>
+                <button className={`w-24 h-24 rounded-full flex items-center justify-center shadow-2xl transition-all active:scale-95 bg-neoul-heuk text-white shadow-black/40`}>
                   <Pause className="w-10 h-10 fill-current" />
                 </button>
                 <button className="text-neoul-heuk/20 hover:text-neoul-heuk transition-colors"><Play className="w-10 h-10 fill-current" /></button>
               </div>
             </div>
 
-            <div className={`p-8 flex items-center justify-center text-center transition-all ${isHifi ? 'bg-slate-900 h-[22%]' : 'bg-neoul-gray/50 h-[20%] border-t border-black/5'}`}>
-              <p className={`text-sm font-medium leading-relaxed ${isHifi ? 'text-white/80' : 'text-neoul-heuk/60'}`}>
-                "지금 보시는 근정전의 마당에 깔린 박석은... <br />
-                눈부심 방지와 미끄럼 방지 기능을 합니다. <br />
-                조선의 배려가 담긴 지혜로운 건축입니다."
+            <div className="p-8 flex items-center justify-center text-center bg-slate-900 h-[22%]">
+              <p className="text-sm font-medium leading-relaxed text-white/80">
+                "이곳은 한국의 아름다운 문화유산입니다. <br />
+                함께 그 가치를 느껴보세요."
               </p>
             </div>
           </motion.div>
