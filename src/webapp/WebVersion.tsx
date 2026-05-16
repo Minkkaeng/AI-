@@ -17,9 +17,9 @@ export default function WebVersion({ isHifi = false }: WebVersionProps) {
         <header className="absolute top-0 left-0 right-0 z-40 bg-neoul-mint h-14 flex items-center px-4">
           <div className="flex w-full justify-around text-white font-bold text-xs tracking-widest">
             <button className="border-b-4 border-white pb-1">HOME</button>
-            <button className="opacity-60">POP SHOP</button>
-            <button className="opacity-60">BROWSE</button>
-            <button className="opacity-60">MY DATE</button>
+            <button className="opacity-60">GUIDE</button>
+            <button className="opacity-60">EXPLORE</button>
+            <button className="opacity-60">MY LOG</button>
           </div>
         </header>
         <div className="absolute top-14 left-0 right-0 z-30 bg-neoul-orange h-10 flex items-center justify-center px-4">

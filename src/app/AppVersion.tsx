@@ -47,9 +47,9 @@ export default function AppVersion({ isHifi = false }: AppVersionProps) {
             <header className={`h-14 ${isHifi ? 'bg-white border-b border-black/5' : 'bg-neoul-mint'} flex items-center px-6 flex-shrink-0 z-40 transition-all`}>
               <div className={`flex w-full justify-around font-bold text-[10px] tracking-widest ${isHifi ? 'text-neoul-heuk' : 'text-white'}`}>
                 <button className={isHifi ? 'text-neoul-mint' : 'border-b-2 border-white pb-1'}>HOME</button>
-                <button className="opacity-40">POP SHOP</button>
+                <button className="opacity-40">GUIDE</button>
                 <button className="opacity-40">BROWSE</button>
-                <button className="opacity-40">MY DATE</button>
+                <button className="opacity-40">MY LOG</button>
               </div>
             </header>
 
@@ -58,11 +58,11 @@ export default function AppVersion({ isHifi = false }: AppVersionProps) {
               {isHifi ? (
                  <div className="flex items-center gap-2 text-[9px] font-bold text-neoul-heuk/60">
                     <span className="bg-neoul-orange/10 text-neoul-orange px-2 py-0.5 rounded-full">NOTICE</span>
-                    <span>적립금 '팝콘'이 생겼어요! 리뷰 쓰고 팝콘 받으러 가실래요?</span>
+                    <span>새로운 역사 해설 '경복궁' 편이 업데이트 되었습니다!</span>
                  </div>
               ) : (
                 <p className="text-[8px] font-bold text-white text-center leading-none">
-                  적립금 '팝콘'이 생겼어요! 리뷰 쓰고 팝콘 받으러 가실래요?
+                  새로운 역사 해설 '경복궁' 편이 업데이트 되었습니다!
                 </p>
               )}
             </div>
