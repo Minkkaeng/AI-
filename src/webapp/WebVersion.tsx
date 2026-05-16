@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, X, Share2, Heart, Star, Bell, Plane, Search, Globe, User, Clock, MapPin } from 'lucide-react';
+import { Play, X, Share2, Heart, Star, Bell, Plane, Search, Globe, Clock, MapPin } from 'lucide-react';
 import { MOCK_PLACES } from '../types';
 
 interface WebVersionProps {
   isHifi?: boolean;
 }
 
-export default function WebVersion({ isHifi = false }: WebVersionProps) {
+export default function WebVersion({ isHifi: _isHifi = false }: WebVersionProps) {
   const [selectedPlace, setSelectedPlace] = useState<any | null>(null);
 
   return (

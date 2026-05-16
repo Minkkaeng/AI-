@@ -7,7 +7,7 @@ interface AppVersionProps {
   isHifi?: boolean;
 }
 
-export default function AppVersion({ isHifi = false }: AppVersionProps) {
+export default function AppVersion({ isHifi: _isHifi = false }: AppVersionProps) {
   const [isSplash, setIsSplash] = useState(true);
   const [selectedPlace, setSelectedPlace] = useState<any | null>(null);
   const [showPlayer, setShowPlayer] = useState(false);
@@ -228,7 +228,7 @@ export default function AppVersion({ isHifi = false }: AppVersionProps) {
 
                        <div className="bg-slate-50 p-6 rounded-[2rem] border border-neoul-border">
                           <div className="flex items-center gap-2 mb-4">
-                             <Info className="w-5 h-5 text-neoul-accent" />
+                             <Star className="w-5 h-5 text-neoul-accent" />
                              <span className="text-xs font-bold text-neoul-accent uppercase tracking-widest">History Tip</span>
                           </div>
                           <p className="text-sm font-medium leading-relaxed text-neoul-heuk/60">
