@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, MapPin, Play, Navigation, Accessibility, X, Menu, Share2 } from 'lucide-react';
+import { Search, MapPin, Play, Navigation, X, Menu, Share2 } from 'lucide-react';
 import { MOCK_PLACES } from '../types';
 import type { Place } from '../types';
 
