@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  --color-neoul-jeok: #1A1A1A;
+  --color-neoul-cheong: #71717A;
+  --color-neoul-hwang: #D4D4D8;
+  --color-neoul-heuk: #000000;
+  --color-neoul-baek: #FFFFFF;
+  --color-neoul-gray: #F4F4F5;
+  
+  --font-sans: "Pretendard", "Inter", system-ui, sans-serif;
+  
+  --radius-4xl: 2rem;
+}
+
+@layer base {
+  body {
+    @apply bg-neoul-baek text-neoul-heuk antialiased;
+    font-family: var(--font-sans);
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white backdrop-blur-none border-2 border-neoul-heuk shadow-none;
+  }
+  
+  .glass-dark {
+    @apply bg-neoul-heuk text-white border-2 border-neoul-heuk shadow-none;
+  }
+
+  .btn-jeok {
+    @apply px-6 py-3 bg-neoul-heuk text-white rounded-none font-bold 
+           border-2 border-neoul-heuk hover:bg-white hover:text-neoul-heuk transition-all active:scale-95;
+  }
+
+  .btn-baek {
+    @apply px-6 py-3 bg-white text-neoul-heuk rounded-none font-bold 
+           border-2 border-neoul-heuk hover:bg-neoul-heuk hover:text-white transition-all active:scale-95;
+  }
+  
+  .wireframe-card {
+    @apply bg-white border-2 border-neoul-heuk p-4 rounded-none;
+  }
+}
+
+/* No Scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Geometric Background */
+.puzzle-bg {
+  background-image: radial-gradient(#e5e5e5 1px, transparent 1px);
+  background-size: 20px 20px;
+}
