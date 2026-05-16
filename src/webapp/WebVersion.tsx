@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, X, Share2, Heart, Star, Bell, Plane, Search, Globe, Clock, MapPin, Info, ExternalLink, MessageSquare, ChevronRight, Filter } from 'lucide-react';
-import { MOCK_PLACES, Place } from '../types';
+import { Play, X, Share2, Heart, Star, Bell, Plane, Search, Globe, Clock, MessageSquare, ChevronRight, Filter } from 'lucide-react';
+import { MOCK_PLACES } from '../types';
+import type { Place } from '../types';
 
 interface WebVersionProps {
   isHifi?: boolean;

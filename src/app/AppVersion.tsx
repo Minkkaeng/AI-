@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, MapPin, Play, Pause, Home, Heart, Settings, Accessibility, ChevronLeft, ChevronDown, Globe, Share2, Star, Plane, Clock, Info, ExternalLink, MessageCircle } from 'lucide-react';
-import { MOCK_PLACES, Place } from '../types';
+import { MOCK_PLACES } from '../types';
+import type { Place } from '../types';
 
 interface AppVersionProps {
   isHifi?: boolean;
