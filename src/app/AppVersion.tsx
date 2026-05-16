@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, MapPin, Play, Pause, Navigation, Home, Heart, Settings, Accessibility, ChevronLeft, Volume2, X, ChevronDown, RotateCcw, RotateCw, Globe } from 'lucide-react';
+import { Search, MapPin, Play, Pause, Home, Heart, Settings, Accessibility, ChevronLeft, ChevronDown, Globe } from 'lucide-react';
 import { MOCK_PLACES } from '../types';
 import type { Place } from '../types';
 

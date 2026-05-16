@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, MapPin, Play, Pause, Navigation, Globe, Accessibility, X, Heart, Menu } from 'lucide-react';
+import { Search, MapPin, Play, Navigation, Accessibility, X, Menu } from 'lucide-react';
 import { MOCK_PLACES } from '../types';
 import type { Place } from '../types';
 
 export default function WebVersion() {
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [, setIsPlaying] = useState(false);
 
   return (
     <div className="relative w-full h-screen bg-white overflow-hidden font-sans">
