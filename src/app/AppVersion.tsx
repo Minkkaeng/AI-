@@ -143,32 +143,54 @@ export default function AppVersion() {
                   </div>
                </div>
 
-               {/* Regions Grid */}
+               {/* Regions Interactive Vector Map */}
                <div className="px-6 mb-10">
                   <div className="flex items-center justify-between mb-5">
-                    <h3 className="text-lg font-black">지역으로 찾기</h3>
+                    <h3 className="text-lg font-black">지도에서 지역 선택</h3>
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
-                     <motion.div whileTap={{ scale: 0.95 }} onClick={() => setSelectedRegion(MOCK_REGIONS[0])} className="col-span-2 relative h-40 rounded-[2rem] overflow-hidden shadow-lg group cursor-pointer">
-                        <img src="hero-bg.png" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                        <div className="absolute top-4 left-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-black text-white border border-white/20">HOT</div>
-                        <div className="absolute bottom-5 left-5">
-                           <h4 className="text-2xl font-black text-white drop-shadow-md">서울 · 경기</h4>
-                           <p className="text-xs text-white/80 font-medium mt-1">조선의 도읍, 천년의 역사</p>
-                        </div>
-                     </motion.div>
+                  <div className="relative w-full h-[400px] bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden flex items-center justify-center">
+                     <div className="absolute inset-0 bg-gradient-to-br from-[#F0F4F8] to-[#E2E8F0] opacity-50" />
                      
-                     <motion.div whileTap={{ scale: 0.95 }} onClick={() => showToast('준비 중입니다.')} className="h-32 bg-white rounded-[2rem] p-5 shadow-sm border border-gray-100 flex flex-col justify-end relative overflow-hidden">
-                        <div className="absolute top-4 right-4 w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center"><MapPin className="w-5 h-5 text-gray-400" /></div>
-                        <h4 className="text-lg font-black text-gray-400">인천</h4>
-                        <p className="text-[10px] text-gray-400 font-bold mt-1">근대 문화의 흔적</p>
-                     </motion.div>
-                     <motion.div whileTap={{ scale: 0.95 }} onClick={() => showToast('준비 중입니다.')} className="h-32 bg-white rounded-[2rem] p-5 shadow-sm border border-gray-100 flex flex-col justify-end relative overflow-hidden">
-                        <div className="absolute top-4 right-4 w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center"><MapPin className="w-5 h-5 text-gray-400" /></div>
-                        <h4 className="text-lg font-black text-gray-400">경주</h4>
-                        <p className="text-[10px] text-gray-400 font-bold mt-1">신라 천년의 향기</p>
-                     </motion.div>
+                     <svg viewBox="40 10 320 440" className="w-full h-full drop-shadow-2xl relative z-10 p-4">
+                        <g stroke="#FFFFFF" strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round">
+                           {/* Gangwon */}
+                           <motion.g onClick={() => showToast('강원 지역은 준비 중입니다.')} whileHover={{ scale: 1.03, zIndex: 10 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[215px_105px]">
+                              <polygon points="150,70 220,40 280,110 240,170 190,130" fill="#E5E7EB" className="transition-colors hover:fill-[#D1D5DB]" />
+                              <text x="215" y="105" textAnchor="middle" alignmentBaseline="middle" fill="#9CA3AF" className="font-black text-[14px] pointer-events-none">강원</text>
+                           </motion.g>
+
+                           {/* Chungcheong */}
+                           <motion.g onClick={() => showToast('충청 지역은 준비 중입니다.')} whileHover={{ scale: 1.03, zIndex: 10 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[165px_190px]">
+                              <polygon points="100,160 190,130 240,170 200,240 90,240" fill="#E5E7EB" className="transition-colors hover:fill-[#D1D5DB]" />
+                              <text x="165" y="190" textAnchor="middle" alignmentBaseline="middle" fill="#9CA3AF" className="font-black text-[14px] pointer-events-none">충청</text>
+                           </motion.g>
+
+                           {/* Gyeongsang */}
+                           <motion.g onClick={() => showToast('경상 지역은 준비 중입니다.')} whileHover={{ scale: 1.03, zIndex: 10 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[260px_225px]">
+                              <polygon points="240,170 280,110 320,180 300,280 240,330 200,240" fill="#E5E7EB" className="transition-colors hover:fill-[#D1D5DB]" />
+                              <text x="260" y="225" textAnchor="middle" alignmentBaseline="middle" fill="#9CA3AF" className="font-black text-[14px] pointer-events-none">경상</text>
+                           </motion.g>
+
+                           {/* Jeolla */}
+                           <motion.g onClick={() => showToast('전라 지역은 준비 중입니다.')} whileHover={{ scale: 1.03, zIndex: 10 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[150px_295px]">
+                              <polygon points="90,240 200,240 240,330 150,360 70,300" fill="#E5E7EB" className="transition-colors hover:fill-[#D1D5DB]" />
+                              <text x="150" y="295" textAnchor="middle" alignmentBaseline="middle" fill="#9CA3AF" className="font-black text-[14px] pointer-events-none">전라</text>
+                           </motion.g>
+
+                           {/* Seoul/Gyeonggi - Active Target */}
+                           <motion.g onClick={() => setSelectedRegion(MOCK_REGIONS[0])} whileHover={{ scale: 1.05, zIndex: 20 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[125px_115px]">
+                              <polygon points="100,80 150,70 190,130 100,160 80,120" fill="#1A1A1A" className="transition-colors hover:fill-[#000000]" />
+                              <circle cx="125" cy="100" r="4" fill="#2DD4BF" className="animate-pulse" />
+                              <text x="125" y="125" textAnchor="middle" alignmentBaseline="middle" fill="#FFFFFF" className="font-black text-[15px] pointer-events-none drop-shadow-md">서울·경기</text>
+                           </motion.g>
+
+                           {/* Jeju */}
+                           <motion.g onClick={() => showToast('제주 지역은 준비 중입니다.')} whileHover={{ scale: 1.03, zIndex: 10 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[130px_410px]">
+                              <polygon points="100,400 150,390 160,420 110,430" fill="#E5E7EB" className="transition-colors hover:fill-[#D1D5DB]" />
+                              <text x="130" y="410" textAnchor="middle" alignmentBaseline="middle" fill="#9CA3AF" className="font-black text-[12px] pointer-events-none">제주</text>
+                           </motion.g>
+                        </g>
+                     </svg>
                   </div>
                </div>
             </motion.div>
@@ -339,9 +361,23 @@ export default function AppVersion() {
                </header>
                
                <div className="flex-1 flex flex-col items-center justify-start pt-6 pb-10 px-8">
-                  {/* Artwork */}
-                  <motion.div animate={{ scale: isPlaying ? 1.02 : 1 }} transition={{ duration: 0.5 }} className="w-64 h-80 rounded-[3rem] shadow-2xl overflow-hidden mb-12 border-[8px] border-gray-50 shrink-0">
-                     <img src={selectedPlace?.image} className="w-full h-full object-cover" />
+                  {/* Artwork (Image Slideshow synced with script) */}
+                  <motion.div animate={{ scale: isPlaying ? 1.02 : 1 }} transition={{ duration: 0.5 }} className="w-64 h-80 rounded-[3rem] shadow-2xl overflow-hidden mb-12 border-[8px] border-gray-50 shrink-0 relative bg-gray-100">
+                     <AnimatePresence mode="wait">
+                        <motion.img 
+                           key={scriptIndex % 3}
+                           src={
+                              scriptIndex % 3 === 0 ? selectedPlace?.image : 
+                              scriptIndex % 3 === 1 ? 'hanok.png' : 
+                              'hero-bg.png'
+                           } 
+                           initial={{ opacity: 0, scale: 1.1 }}
+                           animate={{ opacity: 1, scale: 1 }}
+                           exit={{ opacity: 0, scale: 0.95 }}
+                           transition={{ duration: 0.8, ease: "easeInOut" }}
+                           className="absolute inset-0 w-full h-full object-cover" 
+                        />
+                     </AnimatePresence>
                   </motion.div>
                   
                   {/* Script Viewer (Karaoke Style) */}
