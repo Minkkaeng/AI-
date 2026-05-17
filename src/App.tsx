@@ -1,241 +1,186 @@
 import { useState } from 'react';
 import WebVersion from './webapp/WebVersion';
 import AppVersion from './app/AppVersion';
-import { Monitor, Smartphone, Layout, Layers, Sparkles, ArrowRight, MousePointer2, MapPin, Play, Accessibility } from 'lucide-react';
+import { Monitor, Smartphone, Layers, LayoutList, CheckCircle2, ChevronRight, FileText, Database, MousePointer2 } from 'lucide-react';
 
-type ViewMode = 'web' | 'app' | 'flow';
+type PlatformMode = 'app' | 'web' | 'flow';
+
+const SPEC_DATA = {
+  app: {
+    title: '1.0 모바일 앱 (Mobile App)',
+    description: '모바일 환경에 최적화된 Neoul의 핵심 UX 화면입니다. DatePop 스타일의 탐색 피드와 직관적인 지도 인터랙션을 제공합니다.',
+    features: [
+      { name: '스플래시 화면', desc: '앱 초기 진입 시 브랜드 정체성을 보여주는 로딩 애니메이션' },
+      { name: '홈 (지역 탐색)', desc: '검색바와 추천 지역(서울, 경주 등)이 그리드 형태로 노출되는 메인 진입점' },
+      { name: '지역 피드 (스플릿)', desc: '상단은 지도, 하단은 바텀 시트 형태의 스크롤 피드로 코스와 스팟을 분리 제공' },
+      { name: '장소 디테일', desc: '전체 화면 모달 뷰로, 갤러리/편의시설/역사 정보를 스크롤하여 확인 가능' },
+      { name: 'AI 도슨트 플레이어', desc: '프리미엄 음악 플레이어 스타일의 오디오 가이드 제어 화면' }
+    ],
+    data: ['사용자 위치 (GPS)', '지역(Region) 메타데이터', '장소(Place) 상세 정보 및 갤러리', '도슨트 오디오 스크립트']
+  },
+  web: {
+    title: '2.0 데스크탑 웹 (Desktop Web)',
+    description: 'PC 환경에서 다량의 정보를 효과적으로 탐색할 수 있는 에어비앤비 스타일의 와이드 레이아웃 화면입니다.',
+    features: [
+      { name: '히어로 & 메인 검색', desc: '풀스크린 배경 영상/이미지와 다중 필터(위치, 일정, 테마) 검색바 결합' },
+      { name: '스플릿 뷰 (60:40)', desc: '좌측에는 가로/세로 스크롤이 혼합된 풍부한 피드, 우측에는 반응형 고정 지도 맵핑' },
+      { name: '대화면 디테일 모달', desc: '이미지 고정형(Sticky) 레이아웃으로, 좌측에 고해상도 이미지를 고정하고 우측에 정보 스크롤 제공' },
+      { name: '플로팅 액션', desc: '지도 컨트롤러 및 도슨트 시작 버튼을 플로팅으로 띄워 접근성 강화' }
+    ],
+    data: ['다중 조건 검색 쿼리', '마커 좌표 데이터', '고해상도 이미지 에셋']
+  },
+  flow: {
+    title: '3.0 UX 플로우 (User Flow)',
+    description: '서비스의 핵심 가치가 사용자에게 전달되는 전체적인 단계와 브랜드 여정을 도식화한 화면입니다.',
+    features: [
+      { name: 'Phase 1: Identity', desc: '한국 전통 오방색을 기반으로 한 미니멀리즘 브랜드 경험' },
+      { name: 'Phase 2: Discovery', desc: '지리적 위치와 테마를 기반으로 한 탐색 여정' },
+      { name: 'Phase 3: Insight', desc: '장소에 담긴 역사적 맥락과 큐레이팅된 인사이트 제공' },
+      { name: 'Phase 4: Immersion', desc: 'AI 스마트 도슨트를 통한 시/청각적 몰입 경험 완성' }
+    ],
+    data: ['브랜드 컬러 팔레트', '페르소나 여정 맵 (Journey Map)']
+  }
+};
 
 export default function App() {
-  const [viewMode, setViewMode] = useState<ViewMode>('flow'); // Start with flow for the user to see the result
-  const [designMode, setDesignMode] = useState<'wireframe' | 'hifi'>('hifi');
+  const [platform, setPlatform] = useState<PlatformMode>('app');
 
   return (
-    <div className="w-full h-screen bg-[#F8FAFC] flex flex-col font-sans overflow-hidden">
-      {/* Premium Studio Header */}
-      <header className="h-20 bg-slate-900 text-white flex items-center justify-between px-10 z-50 flex-shrink-0 shadow-2xl">
-        <div className="flex items-center gap-5">
-          <div className="bg-neoul-mint p-2 rounded-xl shadow-lg shadow-neoul-mint/30 rotate-3 transition-transform hover:rotate-0">
-            <Layout className="w-6 h-6 text-white" />
+    <div className="w-full h-screen flex flex-col font-sans bg-[#F8FAFC] overflow-hidden text-slate-800">
+      
+      {/* 설계서 Header */}
+      <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 flex-shrink-0 z-50 shadow-sm">
+        <div className="flex items-center gap-4">
+          <div className="bg-slate-900 p-2 rounded-lg">
+            <LayoutList className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="font-black uppercase tracking-[0.1em] text-xl leading-none">NEOUL STUDIO</h1>
-            <p className="text-[10px] font-bold text-white/40 mt-1 uppercase tracking-widest">Heritage Experience Design</p>
+            <h1 className="font-black text-lg tracking-tight">NEOUL 화면 설계서 <span className="text-slate-400 text-sm font-bold ml-2">v1.0 (최종)</span></h1>
           </div>
         </div>
 
-        <div className="flex bg-white/5 p-1.5 rounded-2xl border border-white/10 backdrop-blur-xl">
-          <button 
-            onClick={() => setViewMode('web')}
-            className={`flex items-center gap-2.5 px-6 py-2.5 rounded-xl text-xs font-black transition-all ${viewMode === 'web' ? 'bg-white text-slate-900 shadow-xl' : 'text-white/40 hover:text-white'}`}
-          >
-            <Monitor className="w-4 h-4" />
-            DESKTOP
-          </button>
-          <button 
-            onClick={() => setViewMode('app')}
-            className={`flex items-center gap-2.5 px-6 py-2.5 rounded-xl text-xs font-black transition-all ${viewMode === 'app' ? 'bg-white text-slate-900 shadow-xl' : 'text-white/40 hover:text-white'}`}
-          >
-            <Smartphone className="w-4 h-4" />
-            MOBILE
-          </button>
-          <button 
-            onClick={() => setViewMode('flow')}
-            className={`flex items-center gap-2.5 px-6 py-2.5 rounded-xl text-xs font-black transition-all ${viewMode === 'flow' ? 'bg-neoul-mint text-white shadow-lg shadow-neoul-mint/40' : 'text-white/40 hover:text-white'}`}
-          >
-            <Layers className="w-4 h-4" />
-            UX FLOW
-          </button>
-        </div>
-
-        <div className="flex items-center gap-8">
-          <div className="flex items-center gap-2 bg-white/5 p-1.5 rounded-full border border-white/10">
-             <button 
-               onClick={() => setDesignMode('wireframe')}
-               className={`px-4 py-2 rounded-full text-[10px] font-black transition-all ${designMode === 'wireframe' ? 'bg-white/20 text-white' : 'text-white/30'}`}
-             >
-               WIREFRAME
-             </button>
-             <button 
-               onClick={() => setDesignMode('hifi')}
-               className={`px-4 py-2 rounded-full text-[10px] font-black transition-all flex items-center gap-2 ${designMode === 'hifi' ? 'bg-neoul-jeok text-white shadow-lg shadow-neoul-jeok/40' : 'text-white/30'}`}
-             >
-               <Sparkles className="w-3.5 h-3.5" />
-               HI-FI UI
-             </button>
+        <div className="flex items-center gap-4">
+          <div className="flex bg-slate-100 p-1 rounded-lg border border-slate-200">
+            <button onClick={() => setPlatform('app')} className={`flex items-center gap-2 px-4 py-1.5 rounded-md text-xs font-black transition-all ${platform === 'app' ? 'bg-white text-slate-900 shadow-sm border border-slate-200' : 'text-slate-500 hover:text-slate-900'}`}><Smartphone className="w-4 h-4" /> App</button>
+            <button onClick={() => setPlatform('web')} className={`flex items-center gap-2 px-4 py-1.5 rounded-md text-xs font-black transition-all ${platform === 'web' ? 'bg-white text-slate-900 shadow-sm border border-slate-200' : 'text-slate-500 hover:text-slate-900'}`}><Monitor className="w-4 h-4" /> Web</button>
           </div>
-          <button className="bg-neoul-mint text-white px-8 py-3 rounded-2xl text-sm font-black hover:scale-[1.02] transition-all uppercase shadow-lg shadow-neoul-mint/20">
-            Publish
-          </button>
+          <button className="bg-slate-900 text-white px-5 py-2 rounded-lg text-xs font-black hover:bg-slate-800 transition-colors">문서 내보내기 (PDF)</button>
         </div>
       </header>
 
-      {/* Main Workspace */}
-      <main className="flex-1 relative overflow-hidden flex items-center justify-center">
-        {viewMode === 'web' && (
-          <div className="w-full h-full p-12 flex flex-col items-center">
-            <div className="w-full h-full max-w-7xl bg-white rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.1)] flex flex-col overflow-hidden relative border border-black/5">
-              <div className="h-14 border-b border-black/5 flex items-center px-8 gap-3 bg-slate-50 flex-shrink-0">
-                <div className="flex gap-2">
-                  <div className="w-3.5 h-3.5 bg-rose-400 rounded-full" />
-                  <div className="w-3.5 h-3.5 bg-amber-400 rounded-full" />
-                  <div className="w-3.5 h-3.5 bg-emerald-400 rounded-full" />
-                </div>
-                <div className="ml-8 bg-white rounded-xl border border-black/5 px-6 py-1.5 text-xs font-bold text-slate-400 w-96 truncate shadow-inner">
-                   https://neoul.ai/experience/web
-                </div>
-              </div>
-              <div className="flex-1 overflow-hidden relative">
-                <WebVersion isHifi={designMode === 'hifi'} />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {viewMode === 'app' && (
-          <div className="p-12 flex flex-col items-center">
-            <div className="w-[420px] h-[860px] bg-slate-900 rounded-[5rem] shadow-[0_60px_120px_-20px_rgba(0,0,0,0.4)] relative p-4 border-[8px] border-slate-800">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-44 h-10 bg-slate-900 rounded-b-[2.5rem] z-[60]" />
-              <div className="w-full h-full bg-white rounded-[4rem] relative overflow-hidden shadow-inner">
-                <AppVersion isHifi={designMode === 'hifi'} />
-              </div>
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-36 h-2 bg-white/20 rounded-full" />
-            </div>
-          </div>
-        )}
-
-        {viewMode === 'flow' && (
-          <div className="w-full h-full overflow-auto bg-slate-100 p-24 custom-scrollbar">
-            <div className="inline-flex items-start gap-40 min-w-max pr-60">
-              
-              {/* Step 01: Brand Identity */}
-              <div className="flex flex-col items-center gap-14 group">
-                <div className="text-center">
-                  <span className="bg-slate-900 text-white px-6 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.2em] shadow-xl">Phase 01</span>
-                  <h3 className="text-4xl font-black mt-4 text-slate-900 tracking-tighter uppercase italic">Identity</h3>
-                </div>
-                <div className="w-[320px] h-[640px] bg-white rounded-[4rem] shadow-2xl border border-black/5 overflow-hidden flex flex-col items-center justify-center p-12 transition-transform group-hover:scale-[1.02]">
-                   <div className="flex gap-4 mb-10">
-                     <div className="w-4 h-20 bg-neoul-jeok rounded-full" />
-                     <div className="w-4 h-20 bg-neoul-cheong rounded-full" />
-                     <div className="w-4 h-20 bg-neoul-hwang rounded-full" />
-                   </div>
-                   <h1 className="text-5xl font-black text-slate-900 tracking-tighter">NEOUL</h1>
-                   <p className="text-xs font-bold mt-4 text-slate-400 uppercase tracking-[0.3em]">AI Docent Platform</p>
-                </div>
-                <div className="max-w-[240px] text-center">
-                   <p className="text-sm font-bold text-slate-500 leading-relaxed">한국의 전통 오방색을 현대적으로 재해석한 <br /><span className="text-neoul-jeok">프리미엄 미니멀리즘</span> 브랜딩</p>
-                </div>
+      {/* Main Layout */}
+      <div className="flex-1 flex overflow-hidden">
+        
+        {/* Left Sidebar: IA (Information Architecture) */}
+        <div className="w-64 bg-white border-r border-slate-200 flex flex-col overflow-y-auto z-20 shadow-[10px_0_20px_rgba(0,0,0,0.02)]">
+          <div className="p-6">
+            <h2 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6">Document Index</h2>
+            
+            <nav className="space-y-6">
+              <div>
+                <button onClick={() => setPlatform('app')} className={`w-full flex items-center justify-between text-sm font-black mb-3 transition-colors ${platform === 'app' ? 'text-slate-900' : 'text-slate-400 hover:text-slate-700'}`}>
+                  1.0 모바일 앱 (App) {platform === 'app' && <ChevronRight className="w-4 h-4" />}
+                </button>
+                <ul className="space-y-2 border-l-2 border-slate-100 ml-2 pl-4">
+                  <li className={`text-xs font-bold ${platform === 'app' ? 'text-slate-600' : 'text-slate-400'}`}>1.1 로딩/스플래시</li>
+                  <li className={`text-xs font-bold ${platform === 'app' ? 'text-slate-600' : 'text-slate-400'}`}>1.2 홈/지역 탐색</li>
+                  <li className={`text-xs font-bold ${platform === 'app' ? 'text-slate-600' : 'text-slate-400'}`}>1.3 지역 상세 피드</li>
+                  <li className={`text-xs font-bold ${platform === 'app' ? 'text-slate-600' : 'text-slate-400'}`}>1.4 장소 정보 모달</li>
+                  <li className={`text-xs font-bold ${platform === 'app' ? 'text-slate-600' : 'text-slate-400'}`}>1.5 오디오 가이드 뷰</li>
+                </ul>
               </div>
 
-              <div className="pt-96 opacity-20"><ArrowRight className="w-20 h-20" /></div>
-
-              {/* Step 02: Exploration */}
-              <div className="flex flex-col items-center gap-14 group">
-                <div className="text-center">
-                  <span className="bg-neoul-mint text-white px-6 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.2em] shadow-xl">Phase 02</span>
-                  <h3 className="text-4xl font-black mt-4 text-slate-900 tracking-tighter uppercase italic">Discovery</h3>
-                </div>
-                <div className="w-[320px] h-[640px] bg-white rounded-[4rem] shadow-2xl border border-black/5 overflow-hidden flex flex-col relative transition-transform group-hover:scale-[1.02]">
-                   <div className="h-16 bg-slate-50 border-b border-black/5 flex items-center justify-around px-8">
-                      <div className="w-8 h-1 bg-neoul-mint rounded-full" /><div className="w-8 h-1 bg-slate-200 rounded-full" /><div className="w-8 h-1 bg-slate-200 rounded-full" />
-                   </div>
-                   <div className="flex-1 bg-[#F9F7F2] p-6 relative overflow-hidden">
-                      <img src="map-bg.png" className="w-full opacity-60 scale-125 translate-y-10" />
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-10">
-                         <div className="bg-white p-2 rounded-2xl shadow-2xl flex flex-col items-center border border-black/5">
-                            <div className="p-2 bg-neoul-mint rounded-xl"><MapPin className="w-4 h-4 text-white" /></div>
-                            <span className="text-[10px] font-black mt-1">SEOUL</span>
-                         </div>
-                      </div>
-                   </div>
-                   <div className="absolute bottom-12 left-6 right-6 p-5 bg-white rounded-3xl shadow-2xl border border-black/5 flex items-center gap-4">
-                      <div className="w-14 h-14 bg-slate-100 rounded-2xl overflow-hidden"><img src="gyeongbokgung.png" className="w-full h-full object-cover" /></div>
-                      <div><div className="w-24 h-3 bg-slate-900 rounded-full mb-1.5" /><div className="w-16 h-2 bg-slate-100 rounded-full" /></div>
-                   </div>
-                   <div className="h-16 bg-white border-t border-black/5 flex items-center justify-center"><div className="w-12 h-12 bg-neoul-mint rounded-2xl shadow-lg shadow-neoul-mint/20 flex items-center justify-center"><Accessibility className="w-6 h-6 text-white" /></div></div>
-                   <div className="absolute bottom-40 right-10"><MousePointer2 className="w-12 h-12 text-slate-900 fill-slate-900 drop-shadow-lg" /></div>
-                </div>
-                <div className="max-w-[240px] text-center">
-                   <p className="text-sm font-bold text-slate-500 leading-relaxed">지리적 맥락에 기반한 <span className="text-neoul-mint">스토리 지형도</span>를 통해 장소의 가치를 발견하는 여정</p>
-                </div>
+              <div>
+                <button onClick={() => setPlatform('web')} className={`w-full flex items-center justify-between text-sm font-black mb-3 transition-colors ${platform === 'web' ? 'text-slate-900' : 'text-slate-400 hover:text-slate-700'}`}>
+                  2.0 데스크탑 (Web) {platform === 'web' && <ChevronRight className="w-4 h-4" />}
+                </button>
+                <ul className="space-y-2 border-l-2 border-slate-100 ml-2 pl-4">
+                  <li className={`text-xs font-bold ${platform === 'web' ? 'text-slate-600' : 'text-slate-400'}`}>2.1 히어로 검색</li>
+                  <li className={`text-xs font-bold ${platform === 'web' ? 'text-slate-600' : 'text-slate-400'}`}>2.2 스플릿 지도 뷰</li>
+                  <li className={`text-xs font-bold ${platform === 'web' ? 'text-slate-600' : 'text-slate-400'}`}>2.3 분할 상세 모달</li>
+                </ul>
               </div>
-
-              <div className="pt-96 opacity-20"><ArrowRight className="w-20 h-20" /></div>
-
-              {/* Step 03: Insight */}
-              <div className="flex flex-col items-center gap-14 group">
-                <div className="text-center">
-                  <span className="bg-neoul-cheong text-white px-6 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.2em] shadow-xl">Phase 03</span>
-                  <h3 className="text-4xl font-black mt-4 text-slate-900 tracking-tighter uppercase italic">Insight</h3>
-                </div>
-                <div className="w-[320px] h-[640px] bg-white rounded-[4rem] shadow-2xl border border-black/5 overflow-hidden flex flex-col relative transition-transform group-hover:scale-[1.02]">
-                   <div className="h-2 bg-neoul-cheong" />
-                   <div className="h-44 overflow-hidden relative">
-                      <img src="gyeongbokgung.png" className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent" />
-                   </div>
-                   <div className="p-8">
-                      <div className="flex gap-2 mb-6"><div className="px-3 py-1 bg-neoul-cheong/10 text-neoul-cheong text-[8px] font-black rounded-full border border-neoul-cheong/20 uppercase tracking-widest">heritage</div></div>
-                      <h4 className="text-2xl font-black mb-4">Gyeongbokgung</h4>
-                      <div className="p-4 bg-neoul-hwang/10 border-l-4 border-neoul-hwang rounded-r-2xl mb-6">
-                         <div className="w-20 h-2 bg-neoul-hwang rounded-full mb-2" />
-                         <div className="w-full h-1.5 bg-neoul-hwang/20 rounded-full" />
-                      </div>
-                      <div className="space-y-2"><div className="w-full h-2 bg-slate-100 rounded-full" /><div className="w-full h-2 bg-slate-100 rounded-full" /><div className="w-2/3 h-2 bg-slate-100 rounded-full" /></div>
-                   </div>
-                   <div className="absolute bottom-8 left-8 right-8"><div className="w-full h-16 bg-neoul-jeok rounded-3xl shadow-xl shadow-neoul-jeok/20" /></div>
-                </div>
-                <div className="max-w-[240px] text-center">
-                   <p className="text-sm font-bold text-slate-500 leading-relaxed">큐레이팅된 <span className="text-neoul-cheong">데이터 아카이브</span>를 통해 문화재의 깊이 있는 역사적 통찰 제공</p>
-                </div>
-              </div>
-
-              <div className="pt-96 opacity-20"><ArrowRight className="w-20 h-20" /></div>
-
-              {/* Step 04: Immersion */}
-              <div className="flex flex-col items-center gap-14 group">
-                <div className="text-center">
-                  <span className="bg-neoul-jeok text-white px-6 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.2em] shadow-xl">Phase 04</span>
-                  <h3 className="text-4xl font-black mt-4 text-slate-900 tracking-tighter uppercase italic">Immersion</h3>
-                </div>
-                <div className="w-[320px] h-[640px] bg-slate-950 rounded-[4rem] shadow-2xl border border-white/5 overflow-hidden flex flex-col items-center p-12 relative transition-transform group-hover:scale-[1.02]">
-                   <div className="w-48 h-48 rounded-full border-4 border-white/20 overflow-hidden mb-12 shadow-2xl rotate-12"><img src="hanok.png" className="w-full h-full object-cover opacity-60" /></div>
-                   <div className="text-center mb-10"><div className="w-40 h-6 bg-white rounded-full mb-2 mx-auto" /><div className="w-24 h-3 bg-neoul-mint rounded-full mx-auto" /></div>
-                   <div className="w-full h-1 bg-white/10 rounded-full mb-14 overflow-hidden"><div className="w-1/2 h-full bg-neoul-jeok" /></div>
-                   <div className="flex items-center gap-8"><div className="w-10 h-10 border-2 border-white/20 rounded-full" /><div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-2xl"><Play className="w-8 h-8 text-slate-900 fill-slate-900" /></div><div className="w-10 h-10 border-2 border-white/20 rounded-full" /></div>
-                   <div className="absolute bottom-0 left-0 right-0 h-32 bg-white/5 backdrop-blur-3xl border-t border-white/10 p-8 flex items-center justify-center text-center"><div className="w-48 h-12 bg-white/10 rounded-2xl" /></div>
-                </div>
-                <div className="max-w-[240px] text-center">
-                   <p className="text-sm font-bold text-slate-500 leading-relaxed">AI 도슨트의 보이스와 실시간 자막이 결합된 <br /><span className="text-neoul-jeok">공감각적 오디오</span> 가이드 경험</p>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        )}
-      </main>
-
-      {/* Footer Status */}
-      <footer className="h-12 bg-white border-t border-black/5 flex items-center justify-between px-10 z-50 flex-shrink-0">
-        <div className="flex items-center gap-8 text-[10px] font-black uppercase tracking-widest">
-          <div className="flex items-center gap-2.5">
-            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-sm shadow-emerald-500/50" />
-            <span className="text-slate-900">SYSTEM: ACTIVE</span>
-          </div>
-          <span className="text-slate-200">|</span>
-          <div className="flex items-center gap-3">
-             <div className="flex -space-x-2">
-                <div className="w-5 h-5 rounded-full border-2 border-white bg-neoul-jeok shadow-sm" />
-                <div className="w-5 h-5 rounded-full border-2 border-white bg-neoul-cheong shadow-sm" />
-                <div className="w-5 h-5 rounded-full border-2 border-white bg-neoul-hwang shadow-sm" />
-             </div>
-             <span className="text-slate-400">DESIGN SYSTEM: NEOUL_V10_PREMIUM</span>
+            </nav>
           </div>
         </div>
-        <div className="text-[10px] font-black uppercase text-slate-300 tracking-[0.3em]">
-          Powered by Antigravity Studio Lab
+
+        {/* Center: Interactive Prototype Viewer */}
+        <div className="flex-1 bg-slate-100 relative overflow-hidden flex items-center justify-center p-8">
+           {/* Background Grid Pattern for "Blueprint" feel */}
+           <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+           
+           <div className="relative z-10 w-full h-full flex items-center justify-center">
+             {platform === 'app' && (
+               <div className="w-[400px] h-[800px] bg-slate-900 rounded-[3.5rem] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)] relative p-3 border-[6px] border-slate-800 shrink-0">
+                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-slate-900 rounded-b-3xl z-[60]" />
+                 <div className="w-full h-full bg-white rounded-[2.5rem] relative overflow-hidden shadow-inner isolate">
+                   <AppVersion />
+                 </div>
+                 <div className="absolute bottom-5 left-1/2 -translate-x-1/2 w-32 h-1.5 bg-white/20 rounded-full" />
+               </div>
+             )}
+
+             {platform === 'web' && (
+               <div className="w-full h-full max-w-[1400px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-slate-200 isolate">
+                 <div className="h-10 border-b border-slate-200 flex items-center px-4 gap-2 bg-slate-50 flex-shrink-0">
+                   <div className="flex gap-1.5"><div className="w-3 h-3 bg-red-400 rounded-full" /><div className="w-3 h-3 bg-amber-400 rounded-full" /><div className="w-3 h-3 bg-green-400 rounded-full" /></div>
+                   <div className="ml-4 bg-white rounded-md border border-slate-200 px-3 py-1 text-[10px] font-bold text-slate-400 w-64 text-center shadow-sm">neoul.ai/web-app</div>
+                 </div>
+                 <div className="flex-1 relative overflow-hidden bg-white">
+                   <WebVersion />
+                 </div>
+               </div>
+             )}
+           </div>
         </div>
-      </footer>
+
+        {/* Right Sidebar: Screen Specification Data */}
+        <div className="w-96 bg-white border-l border-slate-200 flex flex-col overflow-y-auto z-20">
+          <div className="p-8">
+            <h2 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Screen Specification</h2>
+            <h3 className="text-2xl font-black text-slate-900 mb-4">{SPEC_DATA[platform].title}</h3>
+            <p className="text-sm font-medium text-slate-600 leading-relaxed mb-10 pb-8 border-b border-slate-100">
+              {SPEC_DATA[platform].description}
+            </p>
+
+            <div className="mb-10">
+              <h4 className="flex items-center gap-2 text-sm font-black text-slate-900 mb-6 uppercase tracking-wide"><FileText className="w-4 h-4 text-blue-500" /> 핵심 기능 정의 (Features)</h4>
+              <ul className="space-y-6">
+                {SPEC_DATA[platform].features.map((feat, i) => (
+                  <li key={i}>
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <span className="block text-sm font-black text-slate-800 mb-1">{feat.name}</span>
+                        <span className="block text-xs font-medium text-slate-500 leading-relaxed">{feat.desc}</span>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="mb-10">
+              <h4 className="flex items-center gap-2 text-sm font-black text-slate-900 mb-4 uppercase tracking-wide"><Database className="w-4 h-4 text-orange-500" /> 연동 필요 데이터 (Data Schema)</h4>
+              <div className="bg-slate-50 rounded-xl p-4 border border-slate-100 space-y-2">
+                {SPEC_DATA[platform].data.map((d, i) => (
+                  <div key={i} className="text-xs font-bold text-slate-600 flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 bg-orange-400 rounded-full" /> {d}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h4 className="flex items-center gap-2 text-sm font-black text-slate-900 mb-4 uppercase tracking-wide"><MousePointer2 className="w-4 h-4 text-purple-500" /> 화면 인터랙션 노트</h4>
+              <div className="bg-purple-50/50 rounded-xl p-5 border border-purple-100 text-xs font-medium text-purple-900 leading-relaxed">
+                현재 렌더링된 화면은 인터랙티브 프로토타입입니다. 중앙의 뷰어 화면에서 <strong>클릭, 스크롤, 호버</strong> 등의 동작을 직접 수행하여 실제 사용자 경험(UX) 플로우를 확인할 수 있습니다.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
