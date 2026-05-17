@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import WebVersion from './webapp/WebVersion';
 import AppVersion from './app/AppVersion';
-import { Monitor, Smartphone, Layers, LayoutList, CheckCircle2, ChevronRight, FileText, Database, MousePointer2 } from 'lucide-react';
+import { Monitor, Smartphone, LayoutList, CheckCircle2, ChevronRight, FileText, Database, MousePointer2 } from 'lucide-react';
 
 type PlatformMode = 'app' | 'web' | 'flow';
 

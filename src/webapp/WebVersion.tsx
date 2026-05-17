@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, X, Star, Bell, Plane, Search, Globe, Clock, MessageSquare, ChevronRight, Heart, MapPin, Mountain, TowerControl as Tower, ChevronLeft, Calendar, User, SlidersHorizontal, Info } from 'lucide-react';
+import { Play, X, Star, Bell, Plane, Search, Globe, Clock, Share2, ChevronRight, Heart, MapPin, Mountain, TowerControl as Tower, ChevronLeft, Calendar, User, SlidersHorizontal, Info } from 'lucide-react';
 import { MOCK_PLACES, MOCK_REGIONS } from '../types';
 import type { Place, Region } from '../types';
 

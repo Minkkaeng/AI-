@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, MapPin, Play, Pause, Home, Heart, Settings, Accessibility, ChevronLeft, ChevronDown, ChevronRight, Share2, Compass, Bell, Star, Navigation, Info, MessageCircle, X } from 'lucide-react';
+import { Search, MapPin, Play, Pause, Home, Heart, Settings, Accessibility, ChevronLeft, ChevronDown, Share2, Compass, Bell, Star, Navigation, Info, MessageCircle, X } from 'lucide-react';
 import { MOCK_REGIONS, MOCK_PLACES } from '../types';
 import type { Place, Region } from '../types';
 
