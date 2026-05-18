@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, MapPin, Play, Pause, Home, Heart, Settings, Accessibility, ChevronLeft, ChevronDown, Share2, Compass, Bell, Star, Navigation, Info, MessageCircle, X } from 'lucide-react';
 import { MOCK_REGIONS, MOCK_PLACES } from '../types';
-import type { Place, Region } from '../types';
+import type { Place, Region, SubRegion } from '../types';
 
 export default function AppVersion() {
   const [isSplash, setIsSplash] = useState(true);
@@ -10,6 +10,7 @@ export default function AppVersion() {
   // Navigation & Core State
   const [activeTab, setActiveTab] = useState('home');
   const [selectedRegion, setSelectedRegion] = useState<Region | null>(null);
+  const [selectedSubRegion, setSelectedSubRegion] = useState<SubRegion | null>(null);
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [showPlayer, setShowPlayer] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
@@ -113,8 +114,8 @@ export default function AppVersion() {
       <div className="flex-1 relative overflow-hidden flex flex-col">
         <AnimatePresence mode="wait">
           
-          {/* STATE 1: HOME (COUNTRY) */}
-          {!selectedRegion && !selectedPlace && !showPlayer && (
+          {/* STATE 1: HOME (NATIONAL MAP) */}
+          {!selectedRegion && !selectedSubRegion && !selectedPlace && !showPlayer && (
             <motion.div key="home" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="absolute inset-0 flex flex-col overflow-y-auto no-scrollbar bg-gray-50">
                {/* Premium Header */}
                <header className="px-6 pt-12 pb-6 flex items-center justify-between sticky top-0 z-10 bg-gray-50/90 backdrop-blur-md">
@@ -156,38 +157,38 @@ export default function AppVersion() {
                            {/* Gangwon */}
                            <motion.g onClick={() => showToast('강원 지역은 준비 중입니다.')} whileHover={{ scale: 1.03, zIndex: 10 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[215px_105px]">
                               <polygon points="150,70 220,40 280,110 240,170 190,130" fill="#E5E7EB" className="transition-colors hover:fill-[#D1D5DB]" />
-                              <text x="215" y="105" textAnchor="middle" alignmentBaseline="middle" fill="#9CA3AF" className="font-black text-[14px] pointer-events-none">강원</text>
+                              <text x="215" y="105" textAnchor="middle" alignmentBaseline="middle" fill="#9CA3AF" className="font-medium text-[14px] pointer-events-none">강원</text>
                            </motion.g>
 
                            {/* Chungcheong */}
                            <motion.g onClick={() => showToast('충청 지역은 준비 중입니다.')} whileHover={{ scale: 1.03, zIndex: 10 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[165px_190px]">
                               <polygon points="100,160 190,130 240,170 200,240 90,240" fill="#E5E7EB" className="transition-colors hover:fill-[#D1D5DB]" />
-                              <text x="165" y="190" textAnchor="middle" alignmentBaseline="middle" fill="#9CA3AF" className="font-black text-[14px] pointer-events-none">충청</text>
+                              <text x="165" y="190" textAnchor="middle" alignmentBaseline="middle" fill="#9CA3AF" className="font-medium text-[14px] pointer-events-none">충청</text>
                            </motion.g>
 
                            {/* Gyeongsang */}
                            <motion.g onClick={() => showToast('경상 지역은 준비 중입니다.')} whileHover={{ scale: 1.03, zIndex: 10 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[260px_225px]">
                               <polygon points="240,170 280,110 320,180 300,280 240,330 200,240" fill="#E5E7EB" className="transition-colors hover:fill-[#D1D5DB]" />
-                              <text x="260" y="225" textAnchor="middle" alignmentBaseline="middle" fill="#9CA3AF" className="font-black text-[14px] pointer-events-none">경상</text>
+                              <text x="260" y="225" textAnchor="middle" alignmentBaseline="middle" fill="#9CA3AF" className="font-medium text-[14px] pointer-events-none">경상</text>
                            </motion.g>
 
                            {/* Jeolla */}
                            <motion.g onClick={() => showToast('전라 지역은 준비 중입니다.')} whileHover={{ scale: 1.03, zIndex: 10 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[150px_295px]">
                               <polygon points="90,240 200,240 240,330 150,360 70,300" fill="#E5E7EB" className="transition-colors hover:fill-[#D1D5DB]" />
-                              <text x="150" y="295" textAnchor="middle" alignmentBaseline="middle" fill="#9CA3AF" className="font-black text-[14px] pointer-events-none">전라</text>
+                              <text x="150" y="295" textAnchor="middle" alignmentBaseline="middle" fill="#9CA3AF" className="font-medium text-[14px] pointer-events-none">전라</text>
                            </motion.g>
 
                            {/* Seoul/Gyeonggi - Active Target */}
-                           <motion.g onClick={() => setSelectedRegion(MOCK_REGIONS[0])} whileHover={{ scale: 1.05, zIndex: 20 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[125px_115px]">
+                           <motion.g onClick={() => setSelectedRegion(MOCK_REGIONS.find(r => r.id === 'gyeonggi') || null)} whileHover={{ scale: 1.05, zIndex: 20 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[125px_115px]">
                               <polygon points="100,80 150,70 190,130 100,160 80,120" fill="#1A1A1A" className="transition-colors hover:fill-[#000000]" />
-                              <circle cx="125" cy="100" r="4" fill="#2DD4BF" className="animate-pulse" />
-                              <text x="125" y="125" textAnchor="middle" alignmentBaseline="middle" fill="#FFFFFF" className="font-black text-[15px] pointer-events-none drop-shadow-md">서울·경기</text>
+                              <circle cx="125" cy="100" r="4" fill="#FF4D4D" className="animate-pulse" />
+                              <text x="125" y="125" textAnchor="middle" alignmentBaseline="middle" fill="#FFFFFF" className="font-semibold text-[15px] pointer-events-none drop-shadow-md">서울·경기</text>
                            </motion.g>
 
                            {/* Jeju */}
                            <motion.g onClick={() => showToast('제주 지역은 준비 중입니다.')} whileHover={{ scale: 1.03, zIndex: 10 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[130px_410px]">
                               <polygon points="100,400 150,390 160,420 110,430" fill="#E5E7EB" className="transition-colors hover:fill-[#D1D5DB]" />
-                              <text x="130" y="410" textAnchor="middle" alignmentBaseline="middle" fill="#9CA3AF" className="font-black text-[12px] pointer-events-none">제주</text>
+                              <text x="130" y="410" textAnchor="middle" alignmentBaseline="middle" fill="#9CA3AF" className="font-medium text-[12px] pointer-events-none">제주</text>
                            </motion.g>
                         </g>
                      </svg>
@@ -196,119 +197,133 @@ export default function AppVersion() {
             </motion.div>
           )}
 
-          {/* STATE 2: REGION MODE (MAP + FEED) */}
-          {selectedRegion && !selectedPlace && !showPlayer && (
-            <motion.div key="region" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="absolute inset-0 flex flex-col bg-gray-100">
-               {/* Map Area */}
-               <div className="relative h-[45%] w-full flex-shrink-0 bg-gray-200 overflow-hidden">
-                  <img src="seoul-map.png" className="absolute inset-0 w-full h-full object-cover opacity-50" />
-                  <div className="absolute inset-0 bg-black/5" />
-                  
-                  {/* Floating Header */}
-                  <header className="absolute top-12 left-6 right-6 flex items-center justify-between z-10">
-                     <button onClick={() => setSelectedRegion(null)} className="w-12 h-12 bg-white/90 backdrop-blur-md rounded-full shadow-lg flex items-center justify-center border border-white"><ChevronLeft className="w-6 h-6" /></button>
-                     <div className="px-6 py-3 bg-white/90 backdrop-blur-md rounded-full shadow-lg font-black text-sm border border-white">{selectedRegion.name} 탐험</div>
-                     <button onClick={() => setShowSearch(true)} className="w-12 h-12 bg-white/90 backdrop-blur-md rounded-full shadow-lg flex items-center justify-center border border-white"><Search className="w-5 h-5" /></button>
-                  </header>
-
-                  {/* Markers */}
-                  {MOCK_PLACES.map((place, i) => (
-                    <motion.div key={place.id} className={`absolute ${i === 0 ? 'top-[40%] left-[50%]' : i === 1 ? 'top-[60%] left-[30%]' : 'top-[50%] left-[70%]'} -translate-x-1/2 -translate-y-1/2 cursor-pointer z-10`} onClick={() => setSelectedPlace(place)}>
-                       <div className="flex flex-col items-center">
-                          <div className="bg-white px-4 py-2 rounded-2xl shadow-xl flex items-center gap-2 border border-gray-100 mb-1 active:scale-95 transition-transform">
-                             <div className="w-2 h-2 bg-neoul-brand rounded-full animate-pulse" />
-                             <span className="text-xs font-black whitespace-nowrap">{place.name}</span>
-                          </div>
-                          <div className="w-0 h-0 border-l-[6px] border-r-[6px] border-t-[8px] border-transparent border-t-white" />
-                       </div>
-                    </motion.div>
-                  ))}
+          {/* STATE 2: BIG REGION MAP (E.g. Gyeonggi-do) -> Select SubRegion */}
+          {selectedRegion && !selectedSubRegion && !selectedPlace && !showPlayer && (
+            <motion.div key="big-region" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.05 }} className="absolute inset-0 flex flex-col bg-[#F8FAFB]">
+               {/* Minimal Map Area */}
+               <div className="absolute inset-0 bg-[#E2E8F0] overflow-hidden flex items-center justify-center">
+                  <motion.svg viewBox="0 0 400 400" className="w-[150%] h-[150%] opacity-20 drop-shadow-xl" initial={{ scale: 0.8 }} animate={{ scale: 1 }} transition={{ duration: 0.8, ease: "easeOut" }}>
+                     {/* Abstract Gyeonggi Map Shape */}
+                     <path d="M100,100 Q200,50 300,150 T250,350 Q150,300 50,200 Z" fill="#9CA3AF" stroke="#6B7280" strokeWidth="2" />
+                  </motion.svg>
                </div>
-
-               {/* Bottom Sheet Feed */}
-               <div className="flex-1 bg-white relative rounded-t-[2.5rem] -mt-8 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] z-20 flex flex-col overflow-hidden">
-                  <div className="w-full flex justify-center py-4 flex-shrink-0 bg-white">
-                     <div className="w-12 h-1.5 bg-gray-200 rounded-full" />
+               
+               {/* Floating Header */}
+               <header className="absolute top-12 left-6 right-6 flex items-center justify-between z-20">
+                  <button onClick={() => setSelectedRegion(null)} className="w-12 h-12 bg-white/90 backdrop-blur-md rounded-full shadow-sm flex items-center justify-center border border-white"><ChevronLeft className="w-6 h-6 text-neoul-heuk" /></button>
+                  <div className="flex flex-col items-center">
+                     <span className="px-6 py-2.5 bg-white/90 backdrop-blur-md rounded-full shadow-sm font-black text-sm border border-white text-neoul-heuk">{selectedRegion.name}</span>
+                     <span className="text-[10px] font-bold text-gray-500 mt-1.5 px-3 py-1 bg-white/50 backdrop-blur-sm rounded-full">{selectedRegion.description}</span>
                   </div>
-                  
-                  <div className="flex-1 overflow-y-auto no-scrollbar pb-24">
-                     {/* Filter Chips */}
-                     <div className="px-6 flex gap-2 mb-6 overflow-x-auto no-scrollbar">
-                        {['전체', '궁궐/사적', '박물관', '야간개장', '무장애'].map((filter, i) => (
-                           <button key={filter} className={`px-5 py-2 rounded-full text-xs font-bold flex-shrink-0 transition-colors ${i === 0 ? 'bg-neoul-heuk text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}>{filter}</button>
-                        ))}
-                     </div>
+                  <button onClick={() => setShowSearch(true)} className="w-12 h-12 bg-white/90 backdrop-blur-md rounded-full shadow-sm flex items-center justify-center border border-white"><Search className="w-5 h-5 text-neoul-heuk" /></button>
+               </header>
 
-                     <div className="px-6 mb-8">
-                        <h3 className="text-xl font-black mb-4">추천 테마 코스</h3>
-                        <div className="flex gap-4 overflow-x-auto no-scrollbar pb-4 -mx-6 px-6">
-                           {[1, 2].map(item => (
-                              <div key={item} className="w-[280px] bg-white rounded-3xl shadow-md border border-gray-100 overflow-hidden flex-shrink-0">
-                                 <div className="h-36 bg-gray-200 relative">
-                                    <img src="hanok.png" className="w-full h-full object-cover" />
-                                    <div className="absolute top-3 right-3 w-8 h-8 bg-black/20 backdrop-blur-md rounded-full flex items-center justify-center"><Heart className="w-4 h-4 text-white" /></div>
-                                 </div>
-                                 <div className="p-4">
-                                    <h4 className="font-black text-base mb-1">달빛 아래 궁궐 산책</h4>
-                                    <p className="text-xs text-gray-400 font-bold flex items-center gap-1"><MapPin className="w-3 h-3" /> 덕수궁 ➔ 정동길 ➔ 경복궁</p>
-                                 </div>
+               {/* SubRegion Markers (Suwon, Yongin, Paju) */}
+               <div className="absolute inset-0 z-10 pointer-events-none">
+                  {selectedRegion.subRegions.map((subRegion, i) => {
+                     // Determine rough positions based on index
+                     const positions = [
+                        'top-[45%] left-[45%]', // Suwon (Center)
+                        'top-[30%] left-[65%]', // Yongin (Right top)
+                        'top-[60%] left-[30%]'  // Paju (Left bottom)
+                     ];
+                     return (
+                        <motion.div key={subRegion.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} className={`absolute ${positions[i % positions.length]} -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-pointer`} onClick={() => setSelectedSubRegion(subRegion)}>
+                           <div className="flex flex-col items-center group">
+                              <div className="bg-white px-5 py-2.5 rounded-full shadow-lg flex items-center gap-2.5 border border-gray-100 mb-1.5 active:scale-95 transition-all group-hover:border-[#FF4D4D] group-hover:shadow-[#FF4D4D]/20">
+                                 <div className="w-2.5 h-2.5 bg-[#FF4D4D] rounded-full group-hover:animate-pulse" />
+                                 <span className="text-sm font-black text-neoul-heuk whitespace-nowrap">{subRegion.name}</span>
                               </div>
-                           ))}
-                        </div>
-                     </div>
-
-                     <div className="px-6 space-y-4">
-                        <h3 className="text-xl font-black mb-4">인기 스팟</h3>
-                        {MOCK_PLACES.map(place => {
-                           const isSaved = savedPlaces.includes(place.id);
-                           return (
-                             <motion.div whileTap={{ scale: 0.98 }} key={place.id} onClick={() => setSelectedPlace(place)} className="flex gap-4 p-3 bg-white rounded-3xl shadow-sm border border-gray-100 relative">
-                                <motion.div layoutId={`image-${place.id}`} className="w-24 h-24 rounded-2xl overflow-hidden bg-gray-100 flex-shrink-0">
-                                   <img src={place.image} className="w-full h-full object-cover" />
-                                </motion.div>
-                                <div className="flex-1 py-1 flex flex-col justify-center">
-                                   <div className="flex justify-between items-start">
-                                      <motion.h4 layoutId={`title-${place.id}`} className="font-black text-base pr-6">{place.name}</motion.h4>
-                                      <div className="flex items-center gap-1 text-xs font-bold text-neoul-accent"><Star className="w-3.5 h-3.5 fill-current" /> {place.rating}</div>
-                                   </div>
-                                   <p className="text-xs text-gray-400 font-medium mt-1 line-clamp-1">{place.description}</p>
-                                   <div className="mt-auto flex items-center gap-2 text-[10px] font-bold">
-                                      <span className="text-neoul-brand bg-neoul-brand/10 px-2 py-1 rounded-md">{place.category}</span>
-                                      <span className="text-gray-400">{place.distance}</span>
-                                   </div>
-                                </div>
-                                {isSaved && <div className="absolute top-4 right-4"><Heart className="w-4 h-4 text-neoul-accent fill-current" /></div>}
-                             </motion.div>
-                           )
-                        })}
-                     </div>
-                  </div>
+                              <div className="w-0 h-0 border-l-[6px] border-r-[6px] border-t-[8px] border-transparent border-t-white" />
+                           </div>
+                        </motion.div>
+                     );
+                  })}
                </div>
             </motion.div>
           )}
 
-          {/* STATE 3: PLACE DETAIL */}
+          {/* STATE 3: SMALL REGION MAP (E.g. Suwon) -> Select Place */}
+          {selectedSubRegion && !selectedPlace && !showPlayer && (
+            <motion.div key="small-region" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.05 }} className="absolute inset-0 flex flex-col bg-[#F8FAFB]">
+               {/* High-detail Map Area */}
+               <div className="absolute inset-0 bg-[#F1F5F9] overflow-hidden flex items-center justify-center">
+                  {/* Decorative map lines for zoomed-in feel */}
+                  <motion.svg viewBox="0 0 200 200" className="w-[200%] h-[200%] opacity-10 drop-shadow-sm" initial={{ scale: 0.8 }} animate={{ scale: 1 }} transition={{ duration: 0.8, ease: "easeOut" }}>
+                     <path d="M0,50 L200,50 M50,0 L50,200 M0,150 L200,150 M150,0 L150,200" stroke="#000" strokeWidth="0.5" />
+                     <circle cx="100" cy="100" r="40" fill="none" stroke="#000" strokeWidth="1" strokeDasharray="4 4" />
+                  </motion.svg>
+               </div>
+               
+               {/* Floating Header */}
+               <header className="absolute top-12 left-6 right-6 flex items-center justify-between z-20">
+                  <button onClick={() => setSelectedSubRegion(null)} className="w-12 h-12 bg-white/90 backdrop-blur-md rounded-full shadow-sm flex items-center justify-center border border-white"><ChevronLeft className="w-6 h-6 text-neoul-heuk" /></button>
+                  <div className="flex flex-col items-center">
+                     <span className="px-6 py-2.5 bg-white/90 backdrop-blur-md rounded-full shadow-sm font-black text-sm border border-white text-neoul-heuk flex items-center gap-2"><MapPin className="w-4 h-4 text-[#FF4D4D]"/> {selectedRegion?.name} {selectedSubRegion.name}</span>
+                  </div>
+                  <button onClick={() => showToast('내 위치로 리셋')} className="w-12 h-12 bg-white/90 backdrop-blur-md rounded-full shadow-sm flex items-center justify-center border border-white"><Compass className="w-5 h-5 text-neoul-heuk" /></button>
+               </header>
+
+               {/* Place Profile Markers (Suwon Hwaseong, Hwaseong Haenggung) */}
+               <div className="absolute inset-0 z-10 pointer-events-none">
+                  {selectedSubRegion.spots.length > 0 ? selectedSubRegion.spots.map((place, i) => {
+                     const positions = [
+                        'top-[40%] left-[50%]', // Center
+                        'top-[65%] left-[35%]'  // Bottom left
+                     ];
+                     return (
+                        <motion.div key={place.id} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ type: "spring", damping: 20, delay: i * 0.1 }} className={`absolute ${positions[i % positions.length]} -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-pointer flex flex-col items-center group`} onClick={() => setSelectedPlace(place)}>
+                           {/* Profile Tag */}
+                           <div className="bg-neoul-heuk text-white px-3 py-1.5 rounded-lg mb-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-xs font-bold flex flex-col items-center">
+                              <span>{place.name}</span>
+                              <span className="text-[9px] text-gray-300 font-normal">{place.category.split('·')[0]}</span>
+                           </div>
+                           {/* Main Profile Marker */}
+                           <div className="w-14 h-14 bg-white p-1 rounded-full shadow-xl border-2 border-white group-hover:border-[#FF4D4D] transition-colors relative z-10">
+                              <img src={place.image} className="w-full h-full rounded-full object-cover" />
+                              <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-[#FF4D4D] rounded-full border-2 border-white flex items-center justify-center">
+                                 <Star className="w-2.5 h-2.5 text-white fill-white" />
+                              </div>
+                           </div>
+                           {/* Pin tail */}
+                           <div className="w-0 h-0 border-l-[6px] border-r-[6px] border-t-[8px] border-transparent border-t-white -mt-1 relative z-0 group-hover:border-t-[#FF4D4D] transition-colors" />
+                        </motion.div>
+                     );
+                  }) : (
+                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/80 backdrop-blur px-6 py-3 rounded-full text-sm font-bold text-gray-500">
+                        이 지역의 문화재를 준비 중입니다.
+                     </div>
+                  )}
+               </div>
+            </motion.div>
+          )}
+
+          {/* STATE 4: PLACE DETAIL BOTTOM SHEET */}
           {selectedPlace && !showPlayer && (
-            <motion.div key="detail" initial={{ opacity: 0, y: '100%' }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: '100%' }} transition={{ type: "spring", damping: 25, stiffness: 200 }} className="absolute inset-0 z-[100] bg-white flex flex-col overflow-hidden">
+            <motion.div key="detail" initial={{ opacity: 0, y: '100%' }} animate={{ opacity: 1, y: '30%' }} exit={{ opacity: 0, y: '100%' }} transition={{ type: "spring", damping: 25, stiffness: 200 }} className="absolute inset-x-0 bottom-0 top-0 z-[100] bg-white rounded-t-[2.5rem] shadow-[0_-20px_50px_rgba(0,0,0,0.15)] flex flex-col overflow-hidden">
+               <div className="w-full flex justify-center py-4 shrink-0 bg-white absolute top-0 z-30">
+                  <div className="w-12 h-1.5 bg-gray-200 rounded-full" />
+               </div>
+
                {/* Detail Header */}
-               <header className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/60 to-transparent z-20 flex items-center justify-between px-6 pt-8">
-                  <button onClick={() => setSelectedPlace(null)} className="w-12 h-12 bg-black/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/20 active:scale-95 transition-transform"><ChevronDown className="w-7 h-7" /></button>
+               <header className="absolute top-6 left-0 right-0 h-16 bg-gradient-to-b from-white to-transparent z-20 flex items-center justify-between px-6">
+                  <button onClick={() => setSelectedPlace(null)} className="w-10 h-10 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-neoul-heuk border border-gray-100 shadow-sm active:scale-95 transition-transform"><ChevronDown className="w-6 h-6" /></button>
                   <div className="flex gap-3">
-                     <button onClick={() => showToast('공유하기')} className="w-12 h-12 bg-black/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/20 active:scale-95 transition-transform"><Share2 className="w-5 h-5" /></button>
-                     <button onClick={() => toggleSave(selectedPlace.id)} className={`w-12 h-12 bg-black/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 active:scale-95 transition-transform ${savedPlaces.includes(selectedPlace.id) ? 'text-neoul-accent' : 'text-white'}`}>
+                     <button onClick={() => showToast('공유하기')} className="w-10 h-10 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-neoul-heuk border border-gray-100 shadow-sm active:scale-95 transition-transform"><Share2 className="w-4 h-4" /></button>
+                     <button onClick={() => toggleSave(selectedPlace.id)} className={`w-10 h-10 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center border border-gray-100 shadow-sm active:scale-95 transition-transform ${savedPlaces.includes(selectedPlace.id) ? 'text-neoul-accent' : 'text-neoul-heuk'}`}>
                         <Heart className={`w-5 h-5 ${savedPlaces.includes(selectedPlace.id) ? 'fill-current' : ''}`} />
                      </button>
                   </div>
                </header>
 
-               <div className="flex-1 overflow-y-auto no-scrollbar pb-32">
-                  <motion.div layoutId={`image-${selectedPlace.id}`} className="w-full h-[50vh] relative bg-gray-200">
+               <div className="flex-1 overflow-y-auto no-scrollbar pb-32 pt-8">
+                  <motion.div layoutId={`image-${selectedPlace.id}`} className="w-full h-48 relative bg-gray-200">
                      <img src={selectedPlace.image} className="w-full h-full object-cover" />
                      <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-90" />
                   </motion.div>
                   
-                  <div className="px-8 -mt-20 relative z-10">
-                     <motion.h2 layoutId={`title-${selectedPlace.id}`} className="text-4xl font-black text-neoul-heuk drop-shadow-sm">{selectedPlace.name}</motion.h2>
+                  <div className="px-8 -mt-10 relative z-10">
+                     <motion.h2 layoutId={`title-${selectedPlace.id}`} className="text-3xl font-black text-neoul-heuk drop-shadow-sm">{selectedPlace.name}</motion.h2>
                      <p className="text-sm font-black text-neoul-brand uppercase tracking-widest mt-2">{selectedPlace.nameEn}</p>
                      
                      <div className="flex items-center gap-6 mt-6 pb-8 border-b border-gray-100">
@@ -431,8 +446,8 @@ export default function AppVersion() {
       {/* BOTTOM NAVIGATION (Only show on Home & Region states) */}
       <AnimatePresence>
          {(!selectedPlace && !showPlayer) && (
-            <motion.nav initial={{ y: 100 }} animate={{ y: 0 }} exit={{ y: 100 }} className="h-20 bg-white border-t border-gray-100 flex items-center justify-around px-2 z-[60] pb-2 shadow-[0_-10px_20px_rgba(0,0,0,0.02)]">
-               <button onClick={() => { setActiveTab('home'); setSelectedRegion(null); }} className={`flex flex-col items-center gap-1.5 w-16 ${activeTab === 'home' && !selectedRegion ? 'text-neoul-brand' : 'text-gray-400'}`}>
+            <motion.nav initial={{ y: 100 }} animate={{ y: 0 }} exit={{ y: 100 }} className="h-20 bg-white border-t border-gray-100 flex items-center justify-around px-2 z-[60] pb-2 shadow-[0_-10px_20px_rgba(0,0,0,0.02)] relative">
+               <button onClick={() => { setActiveTab('home'); setSelectedRegion(null); setSelectedSubRegion(null); }} className={`flex flex-col items-center gap-1.5 w-16 ${activeTab === 'home' && !selectedRegion ? 'text-neoul-brand' : 'text-gray-400'}`}>
                   <Home className="w-6 h-6" /><span className="text-[10px] font-bold">홈</span>
                </button>
                <button onClick={() => showToast('지도 탭 준비 중')} className="flex flex-col items-center gap-1.5 w-16 text-gray-400">

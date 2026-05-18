@@ -23,15 +23,62 @@ export type Place = {
   }[];
 };
 
+export type SubRegion = {
+  id: string;
+  name: string;
+  description: string;
+  spots: Place[];
+};
+
 export type Region = {
   id: string;
   name: string;
-  spots: Place[];
+  description: string;
+  subRegions: SubRegion[];
 };
 
 export const MOCK_PLACES: Place[] = [
   {
     id: 1,
+    name: '수원화성',
+    nameEn: 'Suwon Hwaseong Fortress',
+    category: '세계문화유산 · 조선성곽',
+    distance: '200m',
+    rating: 4.9,
+    reviewCount: 3450,
+    description: '조선 후기 실학의 결정체로 불리는 계획도시이자 뛰어난 방어 기능을 갖춘 성곽입니다.',
+    historyText: '정조대왕이 아버지 사도세자의 능을 수원으로 옮기며 축조한 성곽으로, 과학적인 설계가 돋보입니다.',
+    image: 'gyeongbokgung.png', // Placeholder
+    gallery: ['gyeongbokgung.png', 'hanok.png'],
+    amenities: [
+      { icon: '♿', label: '일부 구간 휠체어 가능', available: true },
+      { icon: '🚻', label: '장애인 화장실', available: true },
+    ],
+    hours: '09:00 - 18:00 (야간개장 시 21:00)',
+    fee: '1,000원',
+    docentScript: [
+      { time: '00:00', text: '수원화성에 오신 것을 환영합니다.' },
+    ]
+  },
+  {
+    id: 2,
+    name: '화성행궁',
+    nameEn: 'Hwaseong Haenggung',
+    category: '문화재 / 사적',
+    distance: '1.2km',
+    rating: 4.7,
+    reviewCount: 1290,
+    description: '임금이 궁궐을 벗어나 머물던 행궁 중 가장 규모가 크고 아름다운 곳입니다.',
+    historyText: '정조가 원행 때마다 머물렀던 곳으로, 다양한 전통 체험과 행사가 열립니다.',
+    image: 'hanok.png', // Placeholder
+    gallery: ['hanok.png'],
+    amenities: [{ icon: '♿', label: '접근 가능', available: true }],
+    hours: '09:00 - 18:00',
+    fee: '1,500원',
+    docentScript: [{ time: '00:00', text: '화성행궁의 아름다움을 감상해보세요.' }]
+  },
+  {
+    id: 3,
     name: '경복궁',
     nameEn: 'Gyeongbokgung Palace',
     category: '문화재 / 사적',
@@ -52,47 +99,46 @@ export const MOCK_PLACES: Place[] = [
     docentScript: [
       { time: '00:00', text: '안녕하세요. 너울 AI 도슨트입니다. 경복궁 투어를 시작합니다.' },
     ]
-  },
-  {
-    id: 101,
-    name: '덕수궁',
-    nameEn: 'Deoksugung Palace',
-    category: '문화재 / 사적',
-    distance: '1.5km',
-    rating: 4.7,
-    reviewCount: 890,
-    description: '전통 목조건축과 서양식 석조 건물이 공존하는 독특한 아름다움의 궁궐입니다.',
-    historyText: '대한제국의 황궁으로 사용되었으며, 석조전과 같은 서양식 건물이 있어 이색적인 분위기를 자아냅니다.',
-    image: 'gyeongbokgung.png', // Placeholder
-    gallery: ['gyeongbokgung.png'],
-    amenities: [{ icon: '♿', label: '접근 가능', available: true }],
-    hours: '09:00 - 21:00',
-    fee: '1,000원',
-    docentScript: [{ time: '00:00', text: '덕수궁에 오신 것을 환영합니다.' }]
-  },
-  {
-    id: 102,
-    name: '창덕궁',
-    nameEn: 'Changdeokgung Palace',
-    category: '유네스코 세계유산',
-    distance: '800m',
-    rating: 4.9,
-    reviewCount: 1560,
-    description: '자연과 조화를 이룬 한국 최고의 정원, 후원이 있는 궁궐입니다.',
-    historyText: '유네스코 세계문화유산으로 지정된 창덕궁은 가장 한국적인 궁궐로 평가받습니다.',
-    image: 'hanok.png', // Placeholder
-    gallery: ['hanok.png'],
-    amenities: [{ icon: '♿', label: '접근 가능', available: true }],
-    hours: '09:00 - 18:00',
-    fee: '3,000원',
-    docentScript: [{ time: '00:00', text: '창덕궁 후원의 미를 경험해보세요.' }]
   }
 ];
 
 export const MOCK_REGIONS: Region[] = [
   {
+    id: 'gyeonggi',
+    name: '경기도',
+    description: '조선문화 · 민속체험',
+    subRegions: [
+      {
+        id: 'suwon',
+        name: '수원',
+        description: '전통성곽, 왕실문화',
+        spots: [MOCK_PLACES[0], MOCK_PLACES[1]]
+      },
+      {
+        id: 'yongin',
+        name: '용인',
+        description: '한국민속촌, 민속체험',
+        spots: []
+      },
+      {
+        id: 'paju',
+        name: '파주',
+        description: '전통가옥, 유교문화',
+        spots: []
+      }
+    ]
+  },
+  {
     id: 'seoul',
     name: '서울',
-    spots: [MOCK_PLACES[0], MOCK_PLACES[1], MOCK_PLACES[2]]
+    description: '궁궐문화 · 한옥문화',
+    subRegions: [
+      {
+        id: 'jongno',
+        name: '종로/중구',
+        description: '조선 왕실문화의 중심',
+        spots: [MOCK_PLACES[2]]
+      }
+    ]
   }
 ];
