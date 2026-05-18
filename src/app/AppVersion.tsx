@@ -340,24 +340,22 @@ export default function AppVersion() {
                </div>
 
                {/* Top Location Bar */}
-               <div className="absolute top-0 left-0 right-0 pt-12 pb-8 px-6 bg-gradient-to-b from-[#F1F5F9] via-[#F1F5F9]/80 to-transparent z-20 pointer-events-none">
-                  <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-5 shadow-[0_10px_30px_rgba(0,0,0,0.05)] border border-gray-100 flex flex-col gap-4 pointer-events-auto">
-                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center shrink-0">
-                           <div className="relative flex items-center justify-center">
-                              <MapPin className="w-5 h-5" />
-                              <div className="absolute w-2 h-2 bg-blue-500 rounded-full -top-1 -right-1 border-2 border-white animate-pulse" />
-                           </div>
+               <div className="absolute top-6 left-4 right-4 z-20 pointer-events-auto">
+                  <div className="bg-white/95 backdrop-blur-xl rounded-2xl p-4 shadow-lg border border-gray-100">
+                     <div className="grid grid-cols-[auto_1fr] gap-3 items-center mb-3">
+                        <div className="w-9 h-9 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center shadow-inner relative">
+                           <MapPin className="w-4 h-4" />
+                           <div className="absolute w-2 h-2 bg-blue-500 rounded-full top-0 right-0 border-2 border-white animate-pulse" />
                         </div>
-                        <div className="flex-1 overflow-hidden">
-                           <span className="text-[10px] font-black text-gray-400 mb-0.5 tracking-[0.2em] block uppercase">Current Location</span>
-                           <h2 className="text-base font-black text-neoul-heuk truncate">서울특별시 종로구 삼청동</h2>
+                        <div className="min-w-0">
+                           <div className="text-[9px] font-black text-gray-400 mb-0.5 tracking-widest uppercase">현재 위치</div>
+                           <div className="text-sm font-black text-neoul-heuk truncate">서울특별시 종로구 삼청동</div>
                         </div>
                      </div>
-                     <div className="h-px w-full bg-gray-50" />
-                     <button onClick={() => setShowSearch(true)} className="flex items-center gap-3 w-full group">
-                        <Search className="w-4 h-4 text-gray-400 group-hover:text-neoul-brand transition-colors" />
-                        <span className="text-sm font-bold text-gray-400 group-hover:text-neoul-heuk transition-colors">내 위치 주변 문화재 탐색하기</span>
+                     <div className="h-px w-full bg-gray-100 mb-3" />
+                     <button onClick={() => setShowSearch(true)} className="grid grid-cols-[auto_1fr] gap-3 items-center w-full group">
+                        <div className="w-9 flex justify-center"><Search className="w-4 h-4 text-gray-400 group-hover:text-neoul-brand transition-colors" /></div>
+                        <div className="text-xs font-bold text-gray-400 group-hover:text-neoul-heuk transition-colors text-left truncate">주변 문화재 탐색하기</div>
                      </button>
                   </div>
                </div>
