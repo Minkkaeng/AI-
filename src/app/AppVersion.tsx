@@ -370,18 +370,48 @@ export default function AppVersion() {
           {/* TAB: AMENITIES (Facilities Map) */}
           {activeTab === 'amenities' && !selectedPlace && !showPlayer && (
             <motion.div key="tab-amenities" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 flex flex-col bg-[#F8FAFB]">
+               {/* Detailed Street Map Background */}
                <div className="absolute inset-0 overflow-hidden flex items-center justify-center">
-                  <motion.svg viewBox="0 0 400 400" className="w-[180%] h-[180%] opacity-15 drop-shadow-sm" initial={{ scale: 0.95 }} animate={{ scale: 1 }} transition={{ duration: 0.5, ease: "easeOut" }}>
-                     <path d="M50,150 Q150,50 250,150 T350,50" fill="none" stroke="#CBD5E1" strokeWidth="4" />
-                     <path d="M50,250 Q150,350 250,250 T350,350" fill="none" stroke="#CBD5E1" strokeWidth="4" />
+                  <motion.svg viewBox="0 0 400 400" className="w-[250%] h-[250%] opacity-20 drop-shadow-sm" initial={{ scale: 0.95 }} animate={{ scale: 1 }} transition={{ duration: 0.5, ease: "easeOut" }}>
+                     <path d="M0,100 L400,100 M0,200 L400,200 M0,300 L400,300" fill="none" stroke="#94A3B8" strokeWidth="2" strokeDasharray="4 4" />
+                     <path d="M100,0 L100,400 M200,0 L200,400 M300,0 L300,400" fill="none" stroke="#94A3B8" strokeWidth="2" strokeDasharray="4 4" />
+                     <path d="M0,50 L400,350" fill="none" stroke="#CBD5E1" strokeWidth="12" strokeLinecap="round" />
+                     <path d="M50,400 L350,0" fill="none" stroke="#CBD5E1" strokeWidth="8" strokeLinecap="round" />
+                     <rect x="120" y="120" width="60" height="60" fill="#94A3B8" rx="8" opacity="0.5" />
+                     <rect x="220" y="120" width="60" height="60" fill="#94A3B8" rx="8" opacity="0.5" />
+                     <rect x="120" y="220" width="60" height="60" fill="#94A3B8" rx="8" opacity="0.5" />
+                     <rect x="220" y="220" width="60" height="60" fill="#94A3B8" rx="8" opacity="0.5" />
                   </motion.svg>
                </div>
 
+               {/* User Location Pulse */}
+               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center">
+                  <div className="absolute w-24 h-24 bg-blue-500/20 rounded-full animate-ping" />
+                  <div className="absolute w-12 h-12 bg-blue-500/30 rounded-full animate-pulse" />
+                  <div className="w-5 h-5 bg-blue-500 border-4 border-white rounded-full shadow-lg z-10" />
+               </div>
+
+               {/* Top Location Bar (Compact for Amenities) */}
+               <div className="absolute top-6 left-4 right-4 z-20 pointer-events-auto">
+                  <div className="bg-white/95 backdrop-blur-xl rounded-2xl p-4 shadow-lg border border-gray-100">
+                     <div className="grid grid-cols-[auto_1fr] gap-3 items-center">
+                        <div className="w-9 h-9 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center shadow-inner relative">
+                           <MapPin className="w-4 h-4" />
+                           <div className="absolute w-2 h-2 bg-blue-500 rounded-full top-0 right-0 border-2 border-white animate-pulse" />
+                        </div>
+                        <div className="min-w-0">
+                           <div className="text-[9px] font-black text-gray-400 mb-0.5 tracking-widest uppercase">현재 위치 주변 편의시설</div>
+                           <div className="text-sm font-black text-neoul-heuk truncate">서울특별시 종로구 삼청동</div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
                {/* Amenities Filter Bar */}
-               <div className="absolute top-12 left-0 right-0 px-6 z-20 overflow-x-auto no-scrollbar pb-2">
+               <div className="absolute top-28 left-0 right-0 px-6 z-20 overflow-x-auto no-scrollbar pb-2">
                   <div className="flex gap-2">
                      {['전체', '생활 편의', '이동 지원', '긴급/의료', '여행 지원'].map((cat, i) => (
-                        <button key={i} className={`px-5 py-2.5 rounded-full text-xs font-bold whitespace-nowrap shadow-sm border ${i === 0 ? 'bg-neoul-heuk text-white border-neoul-heuk' : 'bg-white text-gray-600 border-white hover:border-neoul-heuk'}`}>{cat}</button>
+                        <button key={i} className={`px-5 py-2.5 rounded-full text-xs font-bold whitespace-nowrap shadow-sm border ${i === 0 ? 'bg-neoul-heuk text-white border-neoul-heuk' : 'bg-white text-gray-600 border-gray-200 hover:border-neoul-heuk hover:text-neoul-heuk transition-colors'}`}>{cat}</button>
                      ))}
                   </div>
                </div>
