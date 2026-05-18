@@ -339,22 +339,27 @@ export default function AppVersion() {
                   })}
                </div>
 
-               {/* Floating Search & Filter */}
-               <div className="absolute top-12 left-6 right-6 flex items-center gap-3 z-20">
-                  <div className="flex-1 bg-white/90 backdrop-blur-md rounded-full shadow-sm flex items-center px-5 py-3 border border-white">
-                     <MapPin className="w-4 h-4 text-neoul-brand mr-2" />
-                     <span className="text-sm font-bold text-neoul-heuk">내 위치 주변 문화재 탐색</span>
+               {/* Top Location Bar */}
+               <div className="absolute top-0 left-0 right-0 pt-12 pb-8 px-6 bg-gradient-to-b from-[#F1F5F9] via-[#F1F5F9]/80 to-transparent z-20 pointer-events-none">
+                  <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-5 shadow-[0_10px_30px_rgba(0,0,0,0.05)] border border-gray-100 flex flex-col gap-4 pointer-events-auto">
+                     <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center shrink-0">
+                           <div className="relative flex items-center justify-center">
+                              <MapPin className="w-5 h-5" />
+                              <div className="absolute w-2 h-2 bg-blue-500 rounded-full -top-1 -right-1 border-2 border-white animate-pulse" />
+                           </div>
+                        </div>
+                        <div className="flex-1 overflow-hidden">
+                           <span className="text-[10px] font-black text-gray-400 mb-0.5 tracking-[0.2em] block uppercase">Current Location</span>
+                           <h2 className="text-base font-black text-neoul-heuk truncate">서울특별시 종로구 삼청동</h2>
+                        </div>
+                     </div>
+                     <div className="h-px w-full bg-gray-50" />
+                     <button onClick={() => setShowSearch(true)} className="flex items-center gap-3 w-full group">
+                        <Search className="w-4 h-4 text-gray-400 group-hover:text-neoul-brand transition-colors" />
+                        <span className="text-sm font-bold text-gray-400 group-hover:text-neoul-heuk transition-colors">내 위치 주변 문화재 탐색하기</span>
+                     </button>
                   </div>
-                  <button onClick={() => setShowSearch(true)} className="w-12 h-12 bg-white/90 backdrop-blur-md rounded-full shadow-sm flex items-center justify-center border border-white"><Search className="w-5 h-5 text-neoul-heuk" /></button>
-               </div>
-
-               {/* Current Location Badge */}
-               <div className="absolute top-28 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
-                  <div className="bg-neoul-heuk/95 backdrop-blur-md text-white px-5 py-2.5 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.15)] flex items-center gap-2 border border-white/10">
-                     <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
-                     <span className="text-sm font-bold tracking-wide">서울특별시 종로구 삼청동</span>
-                  </div>
-                  <span className="text-[10px] font-bold text-gray-500 mt-2 bg-white/80 px-3 py-1 rounded-full backdrop-blur-md shadow-sm border border-white">현재 위치</span>
                </div>
                
                {/* Center to location button */}
