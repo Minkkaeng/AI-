@@ -133,8 +133,7 @@ export default function AppVersion() {
                </header>
 
                {/* Greeting & Quick Search */}
-               <div className="px-6 mb-8">
-                  <h2 className="text-3xl font-black leading-tight mb-6">이번 주말,<br/>어디로 떠나볼까요?</h2>
+               <div className="px-6 mb-8 mt-4">
                   <div onClick={() => setShowSearch(true)} className="w-full bg-white p-4 rounded-[2rem] shadow-lg shadow-black/5 flex items-center gap-4 border border-gray-100">
                      <div className="w-12 h-12 bg-neoul-brand/10 rounded-2xl flex items-center justify-center"><Compass className="w-6 h-6 text-neoul-brand" /></div>
                      <div>
