@@ -422,28 +422,28 @@ export default function AppVersion() {
                   <div className="absolute top-[35%] left-[25%] -translate-x-1/2 -translate-y-1/2">
                      <div className="flex flex-col items-center group cursor-pointer" onClick={() => showToast('GS25 편의점 (24시간)')}>
                         <div className="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center shadow-lg border-2 border-white mb-1 group-hover:scale-110 transition-transform"><Coffee className="w-4 h-4" /></div>
-                        <span className="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-black text-neoul-heuk shadow-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">편의점</span>
+                        <span className="bg-white/90 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[10px] font-black text-neoul-heuk shadow-sm whitespace-nowrap">편의점</span>
                      </div>
                   </div>
                   {/* Transport */}
                   <div className="absolute top-[60%] left-[45%] -translate-x-1/2 -translate-y-1/2">
                      <div className="flex flex-col items-center group cursor-pointer" onClick={() => showToast('종로3가역 (1,3,5호선)')}>
                         <div className="w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center shadow-lg border-2 border-white mb-1 group-hover:scale-110 transition-transform"><Bus className="w-4 h-4" /></div>
-                        <span className="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-black text-neoul-heuk shadow-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">지하철역</span>
+                        <span className="bg-white/90 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[10px] font-black text-neoul-heuk shadow-sm whitespace-nowrap">지하철역</span>
                      </div>
                   </div>
                   {/* Medical/Emergency */}
                   <div className="absolute top-[40%] left-[75%] -translate-x-1/2 -translate-y-1/2">
                      <div className="flex flex-col items-center group cursor-pointer" onClick={() => showToast('서울대학교병원 응급실')}>
                         <div className="w-10 h-10 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg border-2 border-white mb-1 group-hover:scale-110 transition-transform"><Plus className="w-5 h-5" /></div>
-                        <span className="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-black text-neoul-heuk shadow-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">응급실</span>
+                        <span className="bg-white/90 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[10px] font-black text-neoul-heuk shadow-sm whitespace-nowrap">응급실</span>
                      </div>
                   </div>
                   {/* Info */}
                   <div className="absolute top-[70%] left-[20%] -translate-x-1/2 -translate-y-1/2">
                      <div className="flex flex-col items-center group cursor-pointer" onClick={() => showToast('관광안내소 & 짐 보관')}>
                         <div className="w-10 h-10 bg-teal-500 text-white rounded-full flex items-center justify-center shadow-lg border-2 border-white mb-1 group-hover:scale-110 transition-transform"><Info className="w-4 h-4" /></div>
-                        <span className="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-black text-neoul-heuk shadow-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">안내소</span>
+                        <span className="bg-white/90 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[10px] font-black text-neoul-heuk shadow-sm whitespace-nowrap">안내소</span>
                      </div>
                   </div>
                </div>
