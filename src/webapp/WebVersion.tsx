@@ -145,6 +145,33 @@ export default function WebVersion() {
                     ))}
                  </div>
               </div>
+
+              {/* OpenAPI Info Section */}
+              <div className="max-w-[1400px] w-full mx-auto px-12 pb-24">
+                 <div className="bg-gray-50 rounded-[3rem] p-12 border border-gray-100 flex gap-12 items-center">
+                    <div className="w-1/3">
+                       <div className="w-12 h-12 bg-neoul-brand/10 text-neoul-brand rounded-2xl flex items-center justify-center mb-6">
+                          <Info className="w-6 h-6" />
+                       </div>
+                       <h3 className="text-3xl font-black text-neoul-heuk leading-tight mb-4">활용 예정<br/>OpenAPI 목록</h3>
+                       <p className="text-gray-500 font-medium leading-relaxed">한국관광공사의 공공데이터를 활용하여 더욱 풍부하고 신뢰할 수 있는 전통문화 경험을 제공합니다.</p>
+                    </div>
+                    <div className="w-2/3 grid grid-cols-2 gap-4">
+                       {[
+                          { title: '국문 및 어권별 관광정보 서비스', desc: '지역 기반/위치 기반 관광정보 조회 및 상세 콘텐츠 확보' },
+                          { title: '고품질사진 정보', desc: '모달 및 프로필용 고화질 이미지 데이터 활용' },
+                          { title: '중심 관광지 정보', desc: '메인 지도에서 우선 노출할 거점 관광지 선정' },
+                          { title: '무장애 관광정보', desc: '전 세대 사용자를 위한 편의 정보(유모차, 휠체어 등) 추가' },
+                          { title: '두루누비 정보', desc: '이동 루트 안내 시 주변 문화유적지 및 걷기 코스 정보 활용' }
+                       ].map((api, idx) => (
+                          <div key={idx} className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                             <h4 className="text-base font-black text-neoul-heuk mb-2">{api.title}</h4>
+                             <p className="text-xs font-medium text-gray-500 leading-relaxed">{api.desc}</p>
+                          </div>
+                       ))}
+                    </div>
+                 </div>
+              </div>
             </motion.div>
           )}
 
