@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, MapPin, Play, Pause, Home, Heart, Settings, Accessibility, ChevronLeft, ChevronDown, Share2, Compass, Bell, Star, Navigation, Info, MessageCircle, X } from 'lucide-react';
+import { Search, MapPin, Play, Pause, Home, Heart, Settings, Accessibility, ChevronLeft, ChevronDown, Share2, Compass, Bell, Star, Navigation, Info, MessageCircle, X, Coffee, Bus, Plus, Wifi, Map } from 'lucide-react';
 import { MOCK_REGIONS } from '../types';
 import type { Place, Region, SubRegion } from '../types';
 
@@ -114,8 +114,8 @@ export default function AppVersion() {
       <div className="flex-1 relative overflow-hidden flex flex-col">
         <AnimatePresence mode="wait">
           
-          {/* STATE 1: HOME (NATIONAL MAP) */}
-          {!selectedRegion && !selectedSubRegion && !selectedPlace && !showPlayer && (
+          {/* TAB: EXPLORE (STATE 1: NATIONAL MAP) */}
+          {activeTab === 'explore' && !selectedRegion && !selectedSubRegion && !selectedPlace && !showPlayer && (
             <motion.div key="home" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="absolute inset-0 flex flex-col overflow-y-auto no-scrollbar bg-gray-50">
                {/* Premium Header */}
                <header className="px-6 pt-12 pb-6 flex items-center justify-between sticky top-0 z-10 bg-gray-50/90 backdrop-blur-md">
@@ -196,8 +196,8 @@ export default function AppVersion() {
             </motion.div>
           )}
 
-          {/* STATE 2: BIG REGION MAP (E.g. Gyeonggi-do) -> Select SubRegion */}
-          {selectedRegion && !selectedSubRegion && !selectedPlace && !showPlayer && (
+          {/* TAB: EXPLORE (STATE 2: BIG REGION MAP (E.g. Gyeonggi-do) -> Select SubRegion) */}
+          {activeTab === 'explore' && selectedRegion && !selectedSubRegion && !selectedPlace && !showPlayer && (
             <motion.div key="big-region" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.05 }} className="absolute inset-0 flex flex-col bg-[#F8FAFB]">
                {/* Minimal Map Area */}
                <div className="absolute inset-0 bg-[#E2E8F0] overflow-hidden flex items-center justify-center">
@@ -242,8 +242,8 @@ export default function AppVersion() {
             </motion.div>
           )}
 
-          {/* STATE 3: SMALL REGION MAP (E.g. Suwon) -> Select Place */}
-          {selectedSubRegion && !selectedPlace && !showPlayer && (
+          {/* TAB: EXPLORE (STATE 3: SMALL REGION MAP (E.g. Suwon) -> Select Place) */}
+          {activeTab === 'explore' && selectedSubRegion && !selectedPlace && !showPlayer && (
             <motion.div key="small-region" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.05 }} className="absolute inset-0 flex flex-col bg-[#F8FAFB]">
                {/* High-detail Map Area */}
                <div className="absolute inset-0 bg-[#F1F5F9] overflow-hidden flex items-center justify-center">
@@ -293,6 +293,122 @@ export default function AppVersion() {
                         이 지역의 문화재를 준비 중입니다.
                      </div>
                   )}
+               </div>
+            </motion.div>
+          )}
+
+          {/* TAB: HOME (GPS Based Local Map) */}
+          {activeTab === 'home' && !selectedPlace && !showPlayer && (
+            <motion.div key="tab-home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 flex flex-col bg-[#F1F5F9]">
+               <div className="absolute inset-0 overflow-hidden flex items-center justify-center">
+                  <motion.svg viewBox="0 0 400 400" className="w-[200%] h-[200%] opacity-10 drop-shadow-xl" initial={{ scale: 0.9 }} animate={{ scale: 1 }} transition={{ duration: 1, ease: "easeOut" }}>
+                     <path d="M100,50 Q200,150 300,50 T350,250 Q250,300 50,200 Z" fill="#9CA3AF" stroke="#6B7280" strokeWidth="1" />
+                     <path d="M150,100 Q250,200 350,100 T400,300 Q300,350 100,250 Z" fill="none" stroke="#6B7280" strokeWidth="0.5" strokeDasharray="4 4" />
+                  </motion.svg>
+               </div>
+               
+               {/* User Location Pulse */}
+               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center">
+                  <div className="absolute w-24 h-24 bg-blue-500/20 rounded-full animate-ping" />
+                  <div className="absolute w-12 h-12 bg-blue-500/30 rounded-full animate-pulse" />
+                  <div className="w-5 h-5 bg-blue-500 border-4 border-white rounded-full shadow-lg z-10" />
+               </div>
+
+               {/* Nearby Heritage Markers (Mock) */}
+               <div className="absolute inset-0 z-10 pointer-events-none">
+                  {MOCK_REGIONS[0].subRegions[0].spots.map((spot, i) => {
+                     const positions = [
+                        'top-[30%] left-[20%]', 
+                        'top-[65%] left-[70%]',
+                        'top-[20%] left-[60%]'
+                     ];
+                     if (i > 2) return null;
+                     return (
+                        <motion.div key={spot.id} initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.15 + 0.3 }} className={`absolute ${positions[i]} -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-pointer`} onClick={() => setSelectedPlace(spot)}>
+                           <div className="flex flex-col items-center group">
+                              <div className="w-14 h-14 bg-white rounded-full shadow-xl p-1 mb-1.5 active:scale-95 transition-all relative">
+                                 <img src={spot.image} className="w-full h-full rounded-full object-cover" />
+                                 <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-[#FF4D4D] text-white rounded-full border-2 border-white flex items-center justify-center shadow-sm">
+                                    <Star className="w-3 h-3 fill-current" />
+                                 </div>
+                              </div>
+                              <span className="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-black text-neoul-heuk shadow-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">{spot.name}</span>
+                           </div>
+                        </motion.div>
+                     );
+                  })}
+               </div>
+
+               {/* Floating Search & Filter */}
+               <div className="absolute top-12 left-6 right-6 flex items-center gap-3 z-20">
+                  <div className="flex-1 bg-white/90 backdrop-blur-md rounded-full shadow-sm flex items-center px-5 py-3 border border-white">
+                     <MapPin className="w-4 h-4 text-neoul-brand mr-2" />
+                     <span className="text-sm font-bold text-neoul-heuk">현재 내 위치 기반 탐색</span>
+                  </div>
+                  <button onClick={() => setShowSearch(true)} className="w-12 h-12 bg-white/90 backdrop-blur-md rounded-full shadow-sm flex items-center justify-center border border-white"><Search className="w-5 h-5 text-neoul-heuk" /></button>
+               </div>
+               
+               {/* Center to location button */}
+               <div className="absolute bottom-6 right-6 flex flex-col gap-2 z-20">
+                  <button onClick={() => showToast('현재 위치로 이동')} className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center border border-gray-100 text-blue-500 hover:bg-gray-50"><Navigation className="w-5 h-5" /></button>
+               </div>
+            </motion.div>
+          )}
+
+          {/* TAB: AMENITIES (Facilities Map) */}
+          {activeTab === 'amenities' && !selectedPlace && !showPlayer && (
+            <motion.div key="tab-amenities" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 flex flex-col bg-[#F8FAFB]">
+               <div className="absolute inset-0 overflow-hidden flex items-center justify-center">
+                  <motion.svg viewBox="0 0 400 400" className="w-[180%] h-[180%] opacity-15 drop-shadow-sm" initial={{ scale: 0.95 }} animate={{ scale: 1 }} transition={{ duration: 0.5, ease: "easeOut" }}>
+                     <path d="M50,150 Q150,50 250,150 T350,50" fill="none" stroke="#CBD5E1" strokeWidth="4" />
+                     <path d="M50,250 Q150,350 250,250 T350,350" fill="none" stroke="#CBD5E1" strokeWidth="4" />
+                  </motion.svg>
+               </div>
+
+               {/* Amenities Filter Bar */}
+               <div className="absolute top-12 left-0 right-0 px-6 z-20 overflow-x-auto no-scrollbar pb-2">
+                  <div className="flex gap-2">
+                     {['전체', '생활 편의', '이동 지원', '긴급/의료', '여행 지원'].map((cat, i) => (
+                        <button key={i} className={`px-5 py-2.5 rounded-full text-xs font-bold whitespace-nowrap shadow-sm border ${i === 0 ? 'bg-neoul-heuk text-white border-neoul-heuk' : 'bg-white text-gray-600 border-white hover:border-neoul-heuk'}`}>{cat}</button>
+                     ))}
+                  </div>
+               </div>
+
+               {/* Mock Amenities Markers */}
+               <div className="absolute inset-0 z-10 pointer-events-auto">
+                  {/* Convenience */}
+                  <div className="absolute top-[35%] left-[25%] -translate-x-1/2 -translate-y-1/2">
+                     <div className="flex flex-col items-center group cursor-pointer" onClick={() => showToast('GS25 편의점 (24시간)')}>
+                        <div className="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center shadow-lg border-2 border-white mb-1 group-hover:scale-110 transition-transform"><Coffee className="w-4 h-4" /></div>
+                        <span className="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-black text-neoul-heuk shadow-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">편의점</span>
+                     </div>
+                  </div>
+                  {/* Transport */}
+                  <div className="absolute top-[60%] left-[45%] -translate-x-1/2 -translate-y-1/2">
+                     <div className="flex flex-col items-center group cursor-pointer" onClick={() => showToast('종로3가역 (1,3,5호선)')}>
+                        <div className="w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center shadow-lg border-2 border-white mb-1 group-hover:scale-110 transition-transform"><Bus className="w-4 h-4" /></div>
+                        <span className="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-black text-neoul-heuk shadow-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">지하철역</span>
+                     </div>
+                  </div>
+                  {/* Medical/Emergency */}
+                  <div className="absolute top-[40%] left-[75%] -translate-x-1/2 -translate-y-1/2">
+                     <div className="flex flex-col items-center group cursor-pointer" onClick={() => showToast('서울대학교병원 응급실')}>
+                        <div className="w-10 h-10 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg border-2 border-white mb-1 group-hover:scale-110 transition-transform"><Plus className="w-5 h-5" /></div>
+                        <span className="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-black text-neoul-heuk shadow-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">응급실</span>
+                     </div>
+                  </div>
+                  {/* Info */}
+                  <div className="absolute top-[70%] left-[20%] -translate-x-1/2 -translate-y-1/2">
+                     <div className="flex flex-col items-center group cursor-pointer" onClick={() => showToast('관광안내소 & 짐 보관')}>
+                        <div className="w-10 h-10 bg-teal-500 text-white rounded-full flex items-center justify-center shadow-lg border-2 border-white mb-1 group-hover:scale-110 transition-transform"><Info className="w-4 h-4" /></div>
+                        <span className="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-black text-neoul-heuk shadow-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">안내소</span>
+                     </div>
+                  </div>
+               </div>
+
+               {/* Map Controls */}
+               <div className="absolute bottom-6 right-6 flex flex-col gap-2 z-20">
+                  <button onClick={() => showToast('현재 위치로 이동')} className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center border border-gray-100 text-neoul-heuk hover:bg-gray-50"><Navigation className="w-5 h-5" /></button>
                </div>
             </motion.div>
           )}
@@ -446,15 +562,15 @@ export default function AppVersion() {
       <AnimatePresence>
          {(!selectedPlace && !showPlayer) && (
             <motion.nav initial={{ y: 100 }} animate={{ y: 0 }} exit={{ y: 100 }} className="h-20 bg-white border-t border-gray-100 flex items-center justify-around px-2 z-[60] pb-2 shadow-[0_-10px_20px_rgba(0,0,0,0.02)] relative">
-               <button onClick={() => { setActiveTab('home'); setSelectedRegion(null); setSelectedSubRegion(null); }} className={`flex flex-col items-center gap-1.5 w-16 ${activeTab === 'home' && !selectedRegion ? 'text-neoul-brand' : 'text-gray-400'}`}>
+               <button onClick={() => { setActiveTab('home'); setSelectedRegion(null); setSelectedSubRegion(null); setSelectedPlace(null); }} className={`flex flex-col items-center gap-1.5 w-16 ${activeTab === 'home' ? 'text-neoul-brand' : 'text-gray-400'}`}>
                   <Home className="w-6 h-6" /><span className="text-[10px] font-bold">홈</span>
                </button>
-               <button onClick={() => showToast('지도 탭 준비 중')} className="flex flex-col items-center gap-1.5 w-16 text-gray-400">
-                  <MapPin className="w-6 h-6" /><span className="text-[10px] font-bold">주변</span>
+               <button onClick={() => { setActiveTab('explore'); setSelectedRegion(null); setSelectedSubRegion(null); setSelectedPlace(null); }} className={`flex flex-col items-center gap-1.5 w-16 ${activeTab === 'explore' ? 'text-neoul-brand' : 'text-gray-400'}`}>
+                  <Compass className="w-6 h-6" /><span className="text-[10px] font-bold">탐색</span>
                </button>
                <div className="relative -top-6">
-                  <button onClick={() => showToast('배리어프리 모드 ON')} className="w-16 h-16 bg-neoul-heuk text-white rounded-[2rem] flex items-center justify-center shadow-xl shadow-black/20 border-4 border-white active:scale-95 transition-transform">
-                     <Accessibility className="w-7 h-7" />
+                  <button onClick={() => setActiveTab('amenities')} className={`w-16 h-16 ${activeTab === 'amenities' ? 'bg-neoul-brand' : 'bg-neoul-heuk'} text-white rounded-[2rem] flex items-center justify-center shadow-xl shadow-black/20 border-4 border-white active:scale-95 transition-all`}>
+                     <Coffee className="w-7 h-7" />
                   </button>
                </div>
                <button onClick={() => showToast(`보관함 탭 (현재 ${savedPlaces.length}개 저장됨)`)} className="flex flex-col items-center gap-1.5 w-16 text-gray-400 relative">
