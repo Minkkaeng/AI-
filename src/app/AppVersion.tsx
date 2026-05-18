@@ -343,9 +343,18 @@ export default function AppVersion() {
                <div className="absolute top-12 left-6 right-6 flex items-center gap-3 z-20">
                   <div className="flex-1 bg-white/90 backdrop-blur-md rounded-full shadow-sm flex items-center px-5 py-3 border border-white">
                      <MapPin className="w-4 h-4 text-neoul-brand mr-2" />
-                     <span className="text-sm font-bold text-neoul-heuk">현재 내 위치 기반 탐색</span>
+                     <span className="text-sm font-bold text-neoul-heuk">내 위치 주변 문화재 탐색</span>
                   </div>
                   <button onClick={() => setShowSearch(true)} className="w-12 h-12 bg-white/90 backdrop-blur-md rounded-full shadow-sm flex items-center justify-center border border-white"><Search className="w-5 h-5 text-neoul-heuk" /></button>
+               </div>
+
+               {/* Current Location Badge */}
+               <div className="absolute top-28 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
+                  <div className="bg-neoul-heuk/95 backdrop-blur-md text-white px-5 py-2.5 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.15)] flex items-center gap-2 border border-white/10">
+                     <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+                     <span className="text-sm font-bold tracking-wide">서울특별시 종로구 삼청동</span>
+                  </div>
+                  <span className="text-[10px] font-bold text-gray-500 mt-2 bg-white/80 px-3 py-1 rounded-full backdrop-blur-md shadow-sm border border-white">현재 위치</span>
                </div>
                
                {/* Center to location button */}
