@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, MapPin, Play, Pause, Home, Heart, Settings, Accessibility, ChevronLeft, ChevronDown, Share2, Compass, Bell, Star, Navigation, Info, MessageCircle, X, Coffee, Bus, Plus, Wifi, Map } from 'lucide-react';
+import { Search, MapPin, Play, Pause, Home, Heart, Settings, Accessibility, ChevronLeft, ChevronRight, ChevronDown, Share2, Compass, Bell, Star, Navigation, Info, MessageCircle, X, Coffee, Bus, Plus, Wifi, Map } from 'lucide-react';
 import { MOCK_REGIONS } from '../types';
 import type { Place, Region, SubRegion } from '../types';
 
@@ -615,12 +615,12 @@ export default function AppVersion() {
                      <Coffee className="w-7 h-7" />
                   </button>
                </div>
-               <button onClick={() => showToast(`보관함 탭 (현재 ${savedPlaces.length}개 저장됨)`)} className="flex flex-col items-center gap-1.5 w-16 text-gray-400 relative">
+               <button onClick={() => { setActiveTab('saved'); setSelectedPlace(null); }} className={`flex flex-col items-center gap-1.5 w-16 ${activeTab === 'saved' ? 'text-neoul-brand' : 'text-gray-400'} relative`}>
                   <Heart className="w-6 h-6" />
                   {savedPlaces.length > 0 && <div className="absolute top-0 right-3 w-3 h-3 bg-neoul-accent rounded-full border-2 border-white" />}
                   <span className="text-[10px] font-bold">보관함</span>
                </button>
-               <button onClick={() => showToast('설정 탭 준비 중')} className="flex flex-col items-center gap-1.5 w-16 text-gray-400">
+               <button onClick={() => { setActiveTab('settings'); setSelectedPlace(null); }} className={`flex flex-col items-center gap-1.5 w-16 ${activeTab === 'settings' ? 'text-neoul-brand' : 'text-gray-400'}`}>
                   <Settings className="w-6 h-6" /><span className="text-[10px] font-bold">설정</span>
                </button>
             </motion.nav>
