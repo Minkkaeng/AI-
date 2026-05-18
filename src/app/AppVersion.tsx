@@ -157,25 +157,25 @@ export default function AppVersion() {
                            {/* Gangwon */}
                            <motion.g onClick={() => showToast('강원 지역은 준비 중입니다.')} whileHover={{ scale: 1.03, zIndex: 10 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[215px_105px]">
                               <polygon points="150,70 220,40 280,110 240,170 190,130" fill="#E5E7EB" className="transition-colors hover:fill-[#D1D5DB]" />
-                              <text x="215" y="105" textAnchor="middle" alignmentBaseline="middle" fill="#9CA3AF" className="font-medium text-[14px] pointer-events-none">강원</text>
+                              <text x="215" y="105" textAnchor="middle" alignmentBaseline="middle" fill="#000000" className="font-medium text-[14px] pointer-events-none">강원</text>
                            </motion.g>
 
                            {/* Chungcheong */}
                            <motion.g onClick={() => showToast('충청 지역은 준비 중입니다.')} whileHover={{ scale: 1.03, zIndex: 10 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[165px_190px]">
                               <polygon points="100,160 190,130 240,170 200,240 90,240" fill="#E5E7EB" className="transition-colors hover:fill-[#D1D5DB]" />
-                              <text x="165" y="190" textAnchor="middle" alignmentBaseline="middle" fill="#9CA3AF" className="font-medium text-[14px] pointer-events-none">충청</text>
+                              <text x="165" y="190" textAnchor="middle" alignmentBaseline="middle" fill="#000000" className="font-medium text-[14px] pointer-events-none">충청</text>
                            </motion.g>
 
                            {/* Gyeongsang */}
                            <motion.g onClick={() => showToast('경상 지역은 준비 중입니다.')} whileHover={{ scale: 1.03, zIndex: 10 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[260px_225px]">
                               <polygon points="240,170 280,110 320,180 300,280 240,330 200,240" fill="#E5E7EB" className="transition-colors hover:fill-[#D1D5DB]" />
-                              <text x="260" y="225" textAnchor="middle" alignmentBaseline="middle" fill="#9CA3AF" className="font-medium text-[14px] pointer-events-none">경상</text>
+                              <text x="260" y="225" textAnchor="middle" alignmentBaseline="middle" fill="#000000" className="font-medium text-[14px] pointer-events-none">경상</text>
                            </motion.g>
 
                            {/* Jeolla */}
                            <motion.g onClick={() => showToast('전라 지역은 준비 중입니다.')} whileHover={{ scale: 1.03, zIndex: 10 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[150px_295px]">
                               <polygon points="90,240 200,240 240,330 150,360 70,300" fill="#E5E7EB" className="transition-colors hover:fill-[#D1D5DB]" />
-                              <text x="150" y="295" textAnchor="middle" alignmentBaseline="middle" fill="#9CA3AF" className="font-medium text-[14px] pointer-events-none">전라</text>
+                              <text x="150" y="295" textAnchor="middle" alignmentBaseline="middle" fill="#000000" className="font-medium text-[14px] pointer-events-none">전라</text>
                            </motion.g>
 
                            {/* Seoul/Gyeonggi - Active Target */}
@@ -188,7 +188,7 @@ export default function AppVersion() {
                            {/* Jeju */}
                            <motion.g onClick={() => showToast('제주 지역은 준비 중입니다.')} whileHover={{ scale: 1.03, zIndex: 10 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[130px_410px]">
                               <polygon points="100,400 150,390 160,420 110,430" fill="#E5E7EB" className="transition-colors hover:fill-[#D1D5DB]" />
-                              <text x="130" y="410" textAnchor="middle" alignmentBaseline="middle" fill="#9CA3AF" className="font-medium text-[12px] pointer-events-none">제주</text>
+                              <text x="130" y="410" textAnchor="middle" alignmentBaseline="middle" fill="#000000" className="font-medium text-[12px] pointer-events-none">제주</text>
                            </motion.g>
                         </g>
                      </svg>
