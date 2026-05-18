@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, MapPin, Play, Pause, Home, Heart, Settings, Accessibility, ChevronLeft, ChevronDown, Share2, Compass, Bell, Star, Navigation, Info, MessageCircle, X } from 'lucide-react';
-import { MOCK_REGIONS, MOCK_PLACES } from '../types';
+import { MOCK_REGIONS } from '../types';
 import type { Place, Region, SubRegion } from '../types';
 
 export default function AppVersion() {
@@ -156,38 +156,38 @@ export default function AppVersion() {
                            {/* Gangwon */}
                            <motion.g onClick={() => showToast('강원 지역은 준비 중입니다.')} whileHover={{ scale: 1.03, zIndex: 10 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[215px_105px]">
                               <polygon points="150,70 220,40 280,110 240,170 190,130" fill="#E5E7EB" className="transition-colors hover:fill-[#D1D5DB]" />
-                              <text x="215" y="105" textAnchor="middle" alignmentBaseline="middle" fill="#000000" className="font-medium text-[14px] pointer-events-none">강원</text>
+                              <text x="215" y="105" textAnchor="middle" alignmentBaseline="middle" fill="#000000" stroke="none" className="font-medium text-[14px] pointer-events-none">강원</text>
                            </motion.g>
 
                            {/* Chungcheong */}
                            <motion.g onClick={() => showToast('충청 지역은 준비 중입니다.')} whileHover={{ scale: 1.03, zIndex: 10 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[165px_190px]">
                               <polygon points="100,160 190,130 240,170 200,240 90,240" fill="#E5E7EB" className="transition-colors hover:fill-[#D1D5DB]" />
-                              <text x="165" y="190" textAnchor="middle" alignmentBaseline="middle" fill="#000000" className="font-medium text-[14px] pointer-events-none">충청</text>
+                              <text x="165" y="190" textAnchor="middle" alignmentBaseline="middle" fill="#000000" stroke="none" className="font-medium text-[14px] pointer-events-none">충청</text>
                            </motion.g>
 
                            {/* Gyeongsang */}
                            <motion.g onClick={() => showToast('경상 지역은 준비 중입니다.')} whileHover={{ scale: 1.03, zIndex: 10 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[260px_225px]">
                               <polygon points="240,170 280,110 320,180 300,280 240,330 200,240" fill="#E5E7EB" className="transition-colors hover:fill-[#D1D5DB]" />
-                              <text x="260" y="225" textAnchor="middle" alignmentBaseline="middle" fill="#000000" className="font-medium text-[14px] pointer-events-none">경상</text>
+                              <text x="260" y="225" textAnchor="middle" alignmentBaseline="middle" fill="#000000" stroke="none" className="font-medium text-[14px] pointer-events-none">경상</text>
                            </motion.g>
 
                            {/* Jeolla */}
                            <motion.g onClick={() => showToast('전라 지역은 준비 중입니다.')} whileHover={{ scale: 1.03, zIndex: 10 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[150px_295px]">
                               <polygon points="90,240 200,240 240,330 150,360 70,300" fill="#E5E7EB" className="transition-colors hover:fill-[#D1D5DB]" />
-                              <text x="150" y="295" textAnchor="middle" alignmentBaseline="middle" fill="#000000" className="font-medium text-[14px] pointer-events-none">전라</text>
+                              <text x="150" y="295" textAnchor="middle" alignmentBaseline="middle" fill="#000000" stroke="none" className="font-medium text-[14px] pointer-events-none">전라</text>
                            </motion.g>
 
                            {/* Seoul/Gyeonggi - Active Target */}
                            <motion.g onClick={() => setSelectedRegion(MOCK_REGIONS.find(r => r.id === 'gyeonggi') || null)} whileHover={{ scale: 1.05, zIndex: 20 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[125px_115px]">
                               <polygon points="100,80 150,70 190,130 100,160 80,120" fill="#1A1A1A" className="transition-colors hover:fill-[#000000]" />
-                              <circle cx="125" cy="100" r="4" fill="#FF4D4D" className="animate-pulse" />
-                              <text x="125" y="125" textAnchor="middle" alignmentBaseline="middle" fill="#FFFFFF" className="font-semibold text-[15px] pointer-events-none drop-shadow-md">서울·경기</text>
+                              <circle cx="125" cy="100" r="4" fill="#FF4D4D" className="animate-pulse" stroke="none" />
+                              <text x="125" y="125" textAnchor="middle" alignmentBaseline="middle" fill="#FFFFFF" stroke="none" className="font-semibold text-[15px] pointer-events-none drop-shadow-md">서울·경기</text>
                            </motion.g>
 
                            {/* Jeju */}
                            <motion.g onClick={() => showToast('제주 지역은 준비 중입니다.')} whileHover={{ scale: 1.03, zIndex: 10 }} whileTap={{ scale: 0.95 }} className="cursor-pointer origin-[130px_410px]">
                               <polygon points="100,400 150,390 160,420 110,430" fill="#E5E7EB" className="transition-colors hover:fill-[#D1D5DB]" />
-                              <text x="130" y="410" textAnchor="middle" alignmentBaseline="middle" fill="#000000" className="font-medium text-[12px] pointer-events-none">제주</text>
+                              <text x="130" y="410" textAnchor="middle" alignmentBaseline="middle" fill="#000000" stroke="none" className="font-medium text-[12px] pointer-events-none">제주</text>
                            </motion.g>
                         </g>
                      </svg>
